@@ -1,7 +1,7 @@
 {
   "name": "@amitgurbani/mcp-server-woocommerce",
-  "mcpName": "io.github.amitgurbani/mcp-server-woocommerce",
-  "version": "1.0.0",
+  "mcpName": "io.github.AmitGurbani/mcp-server-woocommerce",
+  "version": "1.0.1",
   "description": "MCP server for managing WooCommerce stores through AI assistants",
   "type": "module",
   "author": "Amit Gurbani",
