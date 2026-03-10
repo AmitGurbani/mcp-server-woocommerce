@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node](https://img.shields.io/badge/node-%3E%3D18-brightgreen)](https://nodejs.org)
 
-MCP server for managing WooCommerce stores through AI assistants like Claude. Provides 54 tools covering products, orders, customers, coupons, reports, and more.
+MCP server for managing WooCommerce stores through AI assistants like Claude. Provides 82 tools covering products, orders, customers, coupons, shipping, taxes, webhooks, settings, reports, and more.
 
 ## Quick Start
 
@@ -96,15 +96,19 @@ Add to your Claude Desktop config (`~/Library/Application Support/Claude/claude_
 
 - **Full store management** — CRUD operations for products, categories, tags, brands, orders, customers, and coupons
 - **Product taxonomy** — attributes, attribute terms, and variations with batch support
+- **Shipping** — zones, zone methods, and shipping classes
+- **Taxes** — tax rates and tax classes
+- **Webhooks** — create, manage, and monitor webhook subscriptions
+- **Settings** — read and update store configuration
 - **Reports** — sales reports, top sellers, order/product/customer totals
 - **Media management** — list, delete, and cleanup orphaned media via WordPress REST API
 - **Token optimization** — all tools support a `fields` param to return only specific fields, reducing response size by 60-97%
 - **MCP resources** — schema references for products, orders, and coupons that agents can read for context
 - **Guided prompts** — multi-step workflows for variable product setup, order processing, and catalog overview
-- **Tool annotations** — `readOnlyHint`, `destructiveHint`, and `idempotentHint` on all 54 tools for safe agent behavior
+- **Tool annotations** — `readOnlyHint`, `destructiveHint`, and `idempotentHint` on all 82 tools for safe agent behavior
 - **Actionable errors** — error responses include guidance on how to fix common issues
 
-## Available Tools (54)
+## Available Tools (82)
 
 | Domain | Tools |
 | --- | --- |
@@ -118,6 +122,13 @@ Add to your Claude Desktop config (`~/Library/Application Support/Claude/claude_
 | **Orders** | list, get, create, update |
 | **Customers** | list, get, create, update |
 | **Coupons** | list, get, create, update, delete |
+| **Shipping Zones** | list, get, create, update, delete |
+| **Shipping Zone Methods** | list, get, create, update, delete |
+| **Shipping Classes** | list, create |
+| **Tax Rates** | list, get, create, update, delete |
+| **Tax Classes** | list, create, delete |
+| **Webhooks** | list, get, create, update, delete |
+| **Settings** | list groups, get, update |
 | **Reports** | sales, top sellers, order/product/customer totals |
 | **Media** | list, delete, cleanup orphaned |
 
@@ -151,9 +162,9 @@ Every tool is annotated with behavior hints so AI agents can make safe decisions
 
 | Annotation | Meaning | Applied to |
 | --- | --- | --- |
-| `readOnlyHint` | No side effects, safe to call anytime | All `list_*`, `get_*`, and report tools (25) |
-| `destructiveHint` | Deletes or removes data | All `delete_*` tools + `cleanup_orphaned_media` (9) |
-| `idempotentHint` | Safe to retry, same result each time | All `update_*` and `batch_update_*` tools (8) |
+| `readOnlyHint` | No side effects, safe to call anytime | All `list_*`, `get_*`, and report tools (36) |
+| `destructiveHint` | Deletes or removes data | All `delete_*` tools + `cleanup_orphaned_media` (15) |
+| `idempotentHint` | Safe to retry, same result each time | All `update_*` and `batch_update_*` tools (13) |
 
 All tools also set `openWorldHint: false` — they only interact with WooCommerce, no external side effects.
 

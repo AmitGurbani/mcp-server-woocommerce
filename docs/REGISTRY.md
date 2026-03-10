@@ -5,10 +5,12 @@ Steps for listing mcp-server-woocommerce on MCP registries and directories.
 ## Pre-requisites
 
 Before submitting to any registry:
-1. Push repo to GitHub (`github.com/AmitGurbani/mcp-server-woocommerce`)
-2. Publish to npm (see npm section below)
-3. Ensure README has clear setup instructions, tool list, and examples
+1. Push repo to GitHub (`github.com/AmitGurbani/mcp-server-woocommerce`) ✅
+2. Publish to npm (see npm section below) ❌ **BLOCKER**
+3. Ensure README has clear setup instructions, tool list, and examples ✅
 4. Verify server works via `npx @modelcontextprotocol/inspector node build/index.js`
+5. `server.json` created in repo root for Official MCP Registry ✅
+6. `smithery.yaml` configured for Smithery ✅
 
 ## npm
 
@@ -25,18 +27,21 @@ npm publish --access public  # required for scoped packages
 
 ## Priority 1: Core Registries
 
-### Official MCP Registry (publish first)
+### Official MCP Registry (publish first — highest ROI)
 
 **URL**: [registry.modelcontextprotocol.io](https://registry.modelcontextprotocol.io)
 
 Many other directories (PulseMCP, Windsurf, Glama) auto-crawl this registry, so publishing here maximizes reach.
 
+**Pre-requisite**: `server.json` already created in repo root with the correct schema and metadata.
+
 **Steps**:
 1. Install publisher CLI: `npm install -g @modelcontextprotocol/publisher`
-2. Run `mcp-publisher init` to generate `server.json`
-3. Auth: `mcp-publisher login github`
-4. Publish: `mcp-publisher publish`
-5. *Alternative*: Fork [modelcontextprotocol/registry](https://github.com/modelcontextprotocol/registry) and submit a PR
+2. Auth: `mcp-publisher login github`
+3. Publish: `mcp-publisher publish`
+4. *Alternative*: Fork [modelcontextprotocol/registry](https://github.com/modelcontextprotocol/registry), add entry to `data/seed.json`, and submit a PR
+
+**Registry name**: `io.github.amitgurbani/mcp-server-woocommerce` (reverse DNS format per registry convention)
 
 ### Smithery
 
@@ -131,10 +136,14 @@ Use these points in all submissions:
 
 Other WooCommerce MCP servers in the ecosystem:
 
-| Server | Tools | Field Filtering | Resources | Prompts | Annotations |
-|--------|-------|----------------|-----------|---------|-------------|
-| **@amitgurbani/mcp-server-woocommerce** | 54 | Yes | 5 | 3 | Yes |
-| hlos-ai (npm) | ~30 | No | No | No | No |
-| Automattic (official, dev preview) | ~10 | No | No | No | No |
-| Opestro/Techspawn (Smithery) | ~5-8 | No | No | No | No |
-| osdeibi (GitHub) | ~15 | No | No | No | No |
+| Server | Tools | Field Filtering | Resources | Prompts | Annotations | Stack |
+|--------|-------|----------------|-----------|---------|-------------|-------|
+| **@amitgurbani/mcp-server-woocommerce** | 54 | Yes (60-97%) | 5 | 3 | Yes | TypeScript |
+| Techspawn/Opestro (Smithery) | 91+ | No | No | No | No | Node.js |
+| Automattic (native, WC 10.3+) | ~15 | No | No | No | No | Node.js |
+| hlos-ai (npm) | ~30 | No | No | No | No | Node.js |
+| saifnasserer/Woo-MCP | ~20 | No | No | No | No | Python/FastMCP |
+| Webkul | ~25 | No | No | No | No | Python/FastMCP |
+| CData | ~10 | No | No | No | No | SQL-like read-only |
+
+**Our positioning**: Quality over quantity — token optimization, MCP resources/prompts/annotations, actionable errors, and TypeScript/npx ecosystem compatibility. No other server offers field filtering, resources, prompts, or tool annotations.

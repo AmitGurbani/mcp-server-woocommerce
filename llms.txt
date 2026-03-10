@@ -1,15 +1,15 @@
 # MCP Server for WooCommerce
 
-> A Model Context Protocol (MCP) server that enables AI assistants to manage WooCommerce stores through 54 tools, 5 resources, and 3 guided prompts.
+> A Model Context Protocol (MCP) server that enables AI assistants to manage WooCommerce stores through 82 tools, 5 resources, and 3 guided prompts.
 
-This TypeScript server wraps the WooCommerce REST API into MCP-compatible tools for products, orders, customers, coupons, reports, and media management. Every tool supports field filtering to minimize token usage. All tools are annotated with behavior hints (readOnlyHint, destructiveHint, idempotentHint) for safe autonomous operation.
+This TypeScript server wraps the WooCommerce REST API into MCP-compatible tools for products, orders, customers, coupons, shipping, taxes, webhooks, settings, reports, and media management. Every tool supports field filtering to minimize token usage. All tools are annotated with behavior hints (readOnlyHint, destructiveHint, idempotentHint) for safe autonomous operation.
 
 ## Setup
 
 - [README](https://github.com/AmitGurbani/mcp-server-woocommerce#readme): Installation, configuration, and usage guide
 - [Contributing](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/CONTRIBUTING.md): Development setup and contribution guidelines
 
-## Tools (54)
+## Tools (82)
 
 - [Products](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/products.ts): List, get, create, update, delete products with support for attributes, default_attributes, and brands
 - [Categories](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/categories.ts): List, get, create, update, delete product categories (hierarchical)
@@ -20,6 +20,10 @@ This TypeScript server wraps the WooCommerce REST API into MCP-compatible tools 
 - [Orders](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/orders.ts): List, get, create, update orders with full line item and status management
 - [Customers](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/customers.ts): List, get, create, update customer profiles
 - [Coupons](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/coupons.ts): List, get, create, update, delete discount coupons
+- [Shipping](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/shipping.ts): Shipping zones, zone methods, and shipping classes
+- [Taxes](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/taxes.ts): Tax rates and tax classes management
+- [Webhooks](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/webhooks.ts): Create, manage, and monitor webhook subscriptions
+- [Settings](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/settings.ts): Read and update WooCommerce store configuration
 - [Reports](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/reports.ts): Sales reports, top sellers, order/product/customer totals
 - [Media](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/media.ts): List, delete, and cleanup orphaned media via WordPress REST API
 
