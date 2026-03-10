@@ -1,0 +1,54 @@
+# MCP Server for WooCommerce
+
+> A Model Context Protocol (MCP) server that enables AI assistants to manage WooCommerce stores through 54 tools, 5 resources, and 3 guided prompts.
+
+This TypeScript server wraps the WooCommerce REST API into MCP-compatible tools for products, orders, customers, coupons, reports, and media management. Every tool supports field filtering to minimize token usage. All tools are annotated with behavior hints (readOnlyHint, destructiveHint, idempotentHint) for safe autonomous operation.
+
+## Setup
+
+- [README](https://github.com/AmitGurbani/mcp-server-woocommerce#readme): Installation, configuration, and usage guide
+- [Contributing](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/CONTRIBUTING.md): Development setup and contribution guidelines
+
+## Tools (54)
+
+- [Products](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/products.ts): List, get, create, update, delete products with support for attributes, default_attributes, and brands
+- [Categories](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/categories.ts): List, get, create, update, delete product categories (hierarchical)
+- [Tags](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/tags.ts): List, get, create, update, delete product tags (flat labels)
+- [Brands](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/brands.ts): List, get, create, update, delete product brands (WooCommerce 9.6+)
+- [Attributes](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/attributes.ts): Global attributes and attribute terms with batch support
+- [Variations](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/variations.ts): Product variations CRUD and batch operations for variable products
+- [Orders](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/orders.ts): List, get, create, update orders with full line item and status management
+- [Customers](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/customers.ts): List, get, create, update customer profiles
+- [Coupons](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/coupons.ts): List, get, create, update, delete discount coupons
+- [Reports](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/reports.ts): Sales reports, top sellers, order/product/customer totals
+- [Media](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/media.ts): List, delete, and cleanup orphaned media via WordPress REST API
+
+## Resources (5)
+
+- Product Schema (`woo://schema/product`): Product fields, types, statuses, and key rules
+- Order Schema (`woo://schema/order`): Order fields, status lifecycle, and payment info
+- Coupon Schema (`woo://schema/coupon`): Coupon types, limits, restrictions, and rules
+- Product Types Reference (`woo://reference/product-types`): When to use simple, variable, grouped, or external products
+- Order Statuses Reference (`woo://reference/order-statuses`): Order status transitions and lifecycle diagram
+
+## Prompts (3)
+
+- `setup_variable_product`: End-to-end variable product creation (attribute, terms, product, variations, publish)
+- `process_order`: Review an order and recommend the appropriate status transition
+- `catalog_overview`: Parallel 5-tool dashboard of products, orders, customers, categories, and top sellers
+
+## Configuration
+
+Requires WooCommerce REST API credentials (Consumer Key + Secret) with Read/Write permissions.
+
+Environment variables:
+- `WORDPRESS_SITE_URL` (required): WordPress store URL
+- `WOOCOMMERCE_CONSUMER_KEY` (required): REST API consumer key (`ck_...`)
+- `WOOCOMMERCE_CONSUMER_SECRET` (required): REST API consumer secret (`cs_...`)
+- `WORDPRESS_USERNAME` (optional): WordPress admin username for media tools
+- `WORDPRESS_APP_PASSWORD` (optional): WordPress Application Password for media tools
+
+## Optional
+
+- [Architecture](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/CLAUDE.md): Codebase architecture, patterns, and adding new tools
+- [Registry Guide](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/docs/REGISTRY.md): Publishing to MCP registries (Smithery, Glama, mcp.so)

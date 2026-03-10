@@ -1,0 +1,72 @@
+name: Feature Request
+description: Suggest a new tool, resource, or improvement
+title: "[Feature]: "
+labels: ["feature-request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have an idea to improve the WooCommerce MCP Server? We'd love to hear it!
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or use case
+      description: What problem does this solve? What are you trying to do that you can't today?
+      placeholder: I want to manage WooCommerce shipping zones via MCP, but there's no tool for it...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: Describe the feature you'd like to see. Include tool names, parameters, or behavior if applicable.
+      placeholder: |
+        Add tools like:
+        - list_shipping_zones — list all shipping zones
+        - get_shipping_zone — get zone by ID with methods
+        - update_shipping_zone — update zone settings
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: What area does this feature relate to?
+      options:
+        - New tool module (new WooCommerce entity)
+        - Enhancement to existing tools
+        - New MCP resource
+        - New MCP prompt
+        - Performance / token optimization
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: woo-api
+    attributes:
+      label: WooCommerce API support
+      description: Does the WooCommerce REST API already support this?
+      options:
+        - "Yes — endpoint exists in WooCommerce REST API"
+        - "Partially — some endpoints exist"
+        - "No — would need a WordPress plugin or custom endpoint"
+        - "Not sure"
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Have you considered any workarounds or alternative approaches?
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+      description: Any other context, examples, or references.

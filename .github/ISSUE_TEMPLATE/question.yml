@@ -1,0 +1,48 @@
+name: Question
+description: Ask a question about setup, usage, or troubleshooting
+title: "[Question]: "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Need help with the WooCommerce MCP Server? Ask away!
+
+        **Tip:** Check the [README](https://github.com/AmitGurbani/mcp-server-woocommerce#readme) and [CONTRIBUTING.md](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/CONTRIBUTING.md) first — your answer might already be there.
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+      description: What would you like to know?
+      placeholder: How do I configure the server to work with Cursor?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: topic
+    attributes:
+      label: Topic
+      description: What area is your question about?
+      options:
+        - Setup / Installation
+        - Configuration (env vars, MCP client config)
+        - Using specific tools
+        - Field filtering / token optimization
+        - Docker deployment
+        - Contributing / Development
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: tried
+    attributes:
+      label: What have you tried?
+      description: Share any steps you've already taken or documentation you've reviewed.
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment details
+      description: "Include your MCP client, Node.js version, WooCommerce version, and OS if relevant."

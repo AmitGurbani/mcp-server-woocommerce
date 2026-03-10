@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: WooCommerce REST API Docs
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/
+    about: Official WooCommerce REST API documentation
+  - name: MCP Specification
+    url: https://modelcontextprotocol.io
+    about: Model Context Protocol specification and docs
