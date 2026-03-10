@@ -6,24 +6,29 @@ Steps for listing mcp-server-woocommerce on MCP registries and directories.
 
 Before submitting to any registry:
 1. Push repo to GitHub (`github.com/AmitGurbani/mcp-server-woocommerce`) ✅
-2. Publish to npm (see npm section below) ❌ **BLOCKER**
+2. Publish to npm ✅ (`@amitgurbani/mcp-server-woocommerce` v1.0.1)
 3. Ensure README has clear setup instructions, tool list, and examples ✅
 4. Verify server works via `npx @modelcontextprotocol/inspector node build/index.js`
 5. `server.json` created in repo root for Official MCP Registry ✅
 6. `smithery.yaml` configured for Smithery ✅
 
-## npm
+## npm ✅
 
-**Status**: Name `mcp-server-woocommerce` is taken by hlos-ai — actively maintained (~30 tools, updated 2025). Not a placeholder; dispute won't succeed.
+**Status**: Published as `@amitgurbani/mcp-server-woocommerce` v1.0.1.
 
-**Decision**: Publish as scoped package `@amitgurbani/mcp-server-woocommerce`.
+Name `mcp-server-woocommerce` is taken by hlos-ai. We use the scoped package name.
 
-**Steps**:
-```bash
-npm login
-pnpm build
-npm publish --access public  # required for scoped packages
-```
+## Submission Status
+
+| Registry | Status | Action Required |
+|----------|--------|----------------|
+| Official MCP Registry | ✅ Published | `io.github.AmitGurbani/mcp-server-woocommerce` |
+| Smithery | ⏳ Skipped | Web form requires hosted HTTP URL; CLI available |
+| Cursor Directory | ⏳ Submitted | Pending review |
+| Glama | ⏳ Pending | Auto-syncs from Official Registry, or submit manually |
+| PulseMCP | ✅ Auto | Auto-crawls Official Registry |
+| awesome-mcp-servers | ⏳ Pending | Submit PR to punkpeye/awesome-mcp-servers |
+| Windsurf | ✅ Auto | Auto-syncs from Official Registry |
 
 ## Priority 1: Core Registries
 
@@ -35,21 +40,29 @@ Many other directories (PulseMCP, Windsurf, Glama) auto-crawl this registry, so 
 
 **Pre-requisite**: `server.json` already created in repo root with the correct schema and metadata.
 
-**Steps**:
-1. Install publisher CLI: `npm install -g @modelcontextprotocol/publisher`
-2. Auth: `mcp-publisher login github`
-3. Publish: `mcp-publisher publish`
-4. *Alternative*: Fork [modelcontextprotocol/registry](https://github.com/modelcontextprotocol/registry), add entry to `data/seed.json`, and submit a PR
+**Quick start** (run from repo root):
+```bash
+mcp-publisher login github    # opens browser for GitHub OAuth
+mcp-publisher validate        # verify server.json (already passes ✅)
+mcp-publisher publish          # submit to registry
+```
 
-**Registry name**: `io.github.amitgurbani/mcp-server-woocommerce` (reverse DNS format per registry convention)
+**Registry name**: `io.github.AmitGurbani/mcp-server-woocommerce` (reverse DNS format per registry convention)
+
+**Note**: Token expires periodically — re-run `mcp-publisher login github` if you get a 401.
 
 ### Smithery
 
 **Status**: `smithery.yaml` already configured in repo.
 
-**Steps**:
+**Option A — CLI** (requires API key from smithery.ai/account/api-keys):
+```bash
+npx -y @smithery/cli mcp publish github.com/AmitGurbani/mcp-server-woocommerce
+```
+
+**Option B — Web**:
 1. Go to [smithery.ai](https://smithery.ai) and sign in with GitHub
-2. Connect the `AmitGurbani/mcp-server-woocommerce` repository
+2. Click "Submit Server" and connect the `AmitGurbani/mcp-server-woocommerce` repository
 3. Smithery auto-builds using `Dockerfile` + `smithery.yaml`
 4. Users get one-click install: `npx @smithery/cli install @AmitGurbani/mcp-server-woocommerce`
 
@@ -81,8 +94,8 @@ Primary destination for Cursor IDE users. Supports "Add MCP" web interface.
 ### mcp.so
 
 **Steps**:
-1. Open a GitHub issue on [mcp-so/mcp-servers](https://github.com/mcp-so/mcp-servers)
-2. Include: name, repo URL, description, tags (woocommerce, ecommerce, wordpress)
+1. Submit via web form at [mcp.so](https://mcp.so)
+2. Or open a submission issue if available
 
 ### PulseMCP
 
@@ -103,9 +116,14 @@ Primary destination for Cursor IDE users. Supports "Add MCP" web interface.
 
 ### Awesome MCP Servers (GitHub)
 
-**Steps**:
-1. Submit PR to [appcypher/awesome-mcp-servers](https://github.com/appcypher/awesome-mcp-servers) — largest list
-2. Also submit to [punkpeye/awesome-mcp-servers](https://github.com/punkpeye/awesome-mcp-servers)
+**Primary list**: [punkpeye/awesome-mcp-servers](https://github.com/punkpeye/awesome-mcp-servers) (linked to glama.ai directory)
+
+**Steps**: Fork repo, add the line below to `README.md` under "Other Tools and Integrations" (alphabetical order), submit PR.
+
+**Ready-to-use entry** (copy-paste into README.md):
+```
+- [AmitGurbani/mcp-server-woocommerce](https://github.com/AmitGurbani/mcp-server-woocommerce) 📇 ☁️ - Comprehensive WooCommerce MCP server with 82 tools for store management — products, orders, customers, coupons, shipping, taxes, and more. Features token-optimized field filtering (60-97% savings), 5 MCP resources, 3 guided prompts, and tool annotations.
+```
 
 ### Cline Marketplace
 
@@ -120,17 +138,17 @@ Built into Windsurf IDE; primarily pulls from Official MCP Registry and Smithery
 ## Key Differentiators (for registry descriptions)
 
 Use these points in all submissions:
-- **54 tools** across 10 domains — most comprehensive WooCommerce MCP server
+- **82 tools** across 14 domains — most comprehensive WooCommerce MCP server
 - **Token optimization** — field filtering reduces response size by 60-97%
 - **MCP resources** — 5 schema references for agent context
 - **Guided prompts** — 3 multi-step workflows for common operations
 - **Tool annotations** — readOnly, destructive, idempotent hints for safe AI behavior
 - **Actionable errors** — error responses include fix guidance
-- **Full CRUD** — products, categories, tags, brands, attributes, variations, orders, customers, coupons, reports, media
+- **Full CRUD** — products, categories, tags, brands, attributes, variations, orders, customers, coupons, reports, media, shipping, taxes, webhooks, settings
 
 ### Registry Description Template
 
-> Comprehensive WooCommerce MCP server with 54 tools for full store management — products, orders, customers, coupons, categories, tags, brands, attributes, variations, reports, and media. Features token-optimized field filtering (60-97% savings), 5 MCP resources, 3 guided prompts, tool annotations, and actionable error messages.
+> Comprehensive WooCommerce MCP server with 82 tools for full store management — products, orders, customers, coupons, categories, tags, brands, attributes, variations, reports, media, shipping, taxes, webhooks, and settings. Features token-optimized field filtering (60-97% savings), 5 MCP resources, 3 guided prompts, tool annotations, and actionable error messages.
 
 ## Landscape (March 2026)
 
@@ -138,7 +156,7 @@ Other WooCommerce MCP servers in the ecosystem:
 
 | Server | Tools | Field Filtering | Resources | Prompts | Annotations | Stack |
 |--------|-------|----------------|-----------|---------|-------------|-------|
-| **@amitgurbani/mcp-server-woocommerce** | 54 | Yes (60-97%) | 5 | 3 | Yes | TypeScript |
+| **@amitgurbani/mcp-server-woocommerce** | 82 | Yes (60-97%) | 5 | 3 | Yes | TypeScript |
 | Techspawn/Opestro (Smithery) | 91+ | No | No | No | No | Node.js |
 | Automattic (native, WC 10.3+) | ~15 | No | No | No | No | Node.js |
 | hlos-ai (npm) | ~30 | No | No | No | No | Node.js |

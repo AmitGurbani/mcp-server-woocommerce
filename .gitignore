@@ -8,3 +8,4 @@ agents/**/memory/
 .DS_Store
 coverage/
 *.tgz
+.mcpregistry_*

@@ -17,7 +17,13 @@
     "ecommerce",
     "store-management",
     "orders",
-    "products"
+    "products",
+    "shipping",
+    "taxes",
+    "webhooks",
+    "media",
+    "customers",
+    "coupons"
   ],
   "packages": [
     {
