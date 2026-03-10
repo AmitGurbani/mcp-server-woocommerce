@@ -1,0 +1,65 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.amitgurbani/mcp-server-woocommerce",
+  "title": "WooCommerce MCP Server",
+  "description": "Comprehensive WooCommerce MCP server with 82 tools for full store management — products, orders, customers, coupons, categories, tags, brands, attributes, variations, shipping, taxes, webhooks, settings, reports, and media. Features token-optimized field filtering (60-97% savings), 5 MCP resources, 3 guided prompts, tool annotations, and actionable error messages.",
+  "version": "1.0.0",
+  "websiteUrl": "https://github.com/AmitGurbani/mcp-server-woocommerce",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AmitGurbani/mcp-server-woocommerce",
+    "source": "github"
+  },
+  "categories": ["e-commerce"],
+  "tags": [
+    "woocommerce",
+    "wordpress",
+    "ecommerce",
+    "store-management",
+    "orders",
+    "products"
+  ],
+  "packages": [
+    {
+      "registryType": "npm",
+      "name": "@amitgurbani/mcp-server-woocommerce",
+      "version": "1.0.0",
+      "runtime": "node",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ],
+  "capabilities": {
+    "tools": true,
+    "resources": true,
+    "prompts": true
+  },
+  "environmentVariables": {
+    "WORDPRESS_SITE_URL": {
+      "description": "WordPress store URL (e.g. https://store.example.com)",
+      "isRequired": true,
+      "isSecret": false
+    },
+    "WOOCOMMERCE_CONSUMER_KEY": {
+      "description": "WooCommerce REST API consumer key (starts with ck_)",
+      "isRequired": true,
+      "isSecret": true
+    },
+    "WOOCOMMERCE_CONSUMER_SECRET": {
+      "description": "WooCommerce REST API consumer secret (starts with cs_)",
+      "isRequired": true,
+      "isSecret": true
+    },
+    "WORDPRESS_USERNAME": {
+      "description": "WordPress admin username (required for media tools)",
+      "isRequired": false,
+      "isSecret": false
+    },
+    "WORDPRESS_APP_PASSWORD": {
+      "description": "WordPress Application Password (required for media tools)",
+      "isRequired": false,
+      "isSecret": true
+    }
+  }
+}
