@@ -1,6 +1,6 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.amitgurbani/mcp-server-woocommerce",
+  "name": "io.github.AmitGurbani/mcp-server-woocommerce",
   "title": "WooCommerce MCP Server",
   "description": "82 MCP tools for WooCommerce — products, orders, customers, coupons, shipping, taxes, and more.",
   "version": "1.0.0",
