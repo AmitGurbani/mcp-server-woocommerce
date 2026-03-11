@@ -115,7 +115,7 @@ const TOTAL_EXPECTED_TOOLS = Object.values(EXPECTED_TOOLS).flat().length;
 describe('Tool schema validation', () => {
   const registeredTools = new Map<
     string,
-    { description: string; schema: Record<string, any>; handler: Function }
+    { description: string; schema: Record<string, any>; annotations: Record<string, any> | undefined; handler: Function }
   >();
 
   beforeAll(() => {
@@ -126,6 +126,7 @@ describe('Tool schema validation', () => {
       registeredTools.set(name, {
         description: config.description,
         schema: config.inputSchema,
+        annotations: config.annotations,
         handler,
       });
     }) as any);
@@ -254,6 +255,59 @@ describe('Tool schema validation', () => {
           resourceTools.length,
           `${resource} should have at least 2 tools`
         ).toBeGreaterThanOrEqual(2);
+      }
+    });
+  });
+
+  describe('tool annotations', () => {
+    it('batch_update_attribute_terms has destructiveHint: true', () => {
+      const tool = registeredTools.get('batch_update_attribute_terms');
+      expect(tool).toBeDefined();
+      expect(tool!.annotations).toBeDefined();
+      expect(tool!.annotations!.destructiveHint).toBe(true);
+    });
+
+    it('batch_update_variations has destructiveHint: true', () => {
+      const tool = registeredTools.get('batch_update_variations');
+      expect(tool).toBeDefined();
+      expect(tool!.annotations).toBeDefined();
+      expect(tool!.annotations!.destructiveHint).toBe(true);
+    });
+
+    it('all delete tools have destructiveHint: true', () => {
+      const deleteTools = Array.from(registeredTools.entries()).filter(([name]) =>
+        name.startsWith('delete_')
+      );
+
+      expect(deleteTools.length).toBeGreaterThan(0);
+      for (const [name, tool] of deleteTools) {
+        expect(
+          tool.annotations?.destructiveHint,
+          `${name} should have destructiveHint: true`
+        ).toBe(true);
+      }
+    });
+
+    it('all list/get tools have readOnlyHint: true', () => {
+      const readTools = Array.from(registeredTools.entries()).filter(
+        ([name]) => name.startsWith('list_') || name.startsWith('get_')
+      );
+
+      expect(readTools.length).toBeGreaterThan(0);
+      for (const [name, tool] of readTools) {
+        expect(
+          tool.annotations?.readOnlyHint,
+          `${name} should have readOnlyHint: true`
+        ).toBe(true);
+      }
+    });
+
+    it('all tools have openWorldHint: false', () => {
+      for (const [name, tool] of registeredTools.entries()) {
+        expect(
+          tool.annotations?.openWorldHint,
+          `${name} should have openWorldHint: false`
+        ).toBe(false);
       }
     });
   });

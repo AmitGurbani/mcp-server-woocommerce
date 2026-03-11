@@ -171,7 +171,7 @@ export function registerVariationTools(server: McpServer) {
     {
       description:
         'Batch create, update, or delete variations in a single request. More efficient than individual calls for setting up a variable product.',
-      annotations: { openWorldHint: false },
+      annotations: { destructiveHint: true, openWorldHint: false },
       inputSchema: {
         product_id: z.number().describe('Parent product ID'),
         create: z

@@ -108,6 +108,45 @@ Add to your Claude Desktop config (`~/Library/Application Support/Claude/claude_
 - **Tool annotations** — `readOnlyHint`, `destructiveHint`, and `idempotentHint` on all 100 tools for safe agent behavior
 - **Actionable errors** — error responses include guidance on how to fix common issues
 
+## Safety
+
+> **This server connects to a LIVE WooCommerce store.** Every create, update, and delete operation affects real data. Use caution, especially on production stores.
+
+### Before You Start
+
+- **Back up your store** before using destructive tools. Use a WordPress backup plugin or your host's backup feature.
+- **Test on staging first.** Clone your production store to a staging environment and point this server at the staging URL.
+- **Use read-only mode** when exploring. Set `WOOCOMMERCE_MCP_READ_ONLY=true` to block all write operations — only list, get, and report tools will work.
+
+### Irreversible Operations
+
+Most delete operations move items to trash (recoverable). However, these are **permanent and cannot be undone**:
+
+| Tool | Why it's irreversible |
+| --- | --- |
+| `delete_media` | WordPress media deletions bypass trash entirely |
+| `delete_tax_rate` | Tax rates have no trash — deleted immediately |
+| `delete_tax_class` | Tax classes have no trash — rates become orphaned |
+| `delete_attribute` | Removes the attribute AND all its terms from every product |
+| `delete_refund` | Removes refund record (does not reverse payment) |
+| `cleanup_orphaned_media` | Permanently deletes all unattached media when `delete=true` |
+| `run_system_tool` | System maintenance actions (cache clears, DB updates) cannot be undone |
+
+### Cascading Effects
+
+Some operations affect more than the single item being changed:
+
+- **Deleting an attribute** removes it from all products — variable products may break
+- **Deleting an attribute term** removes that option from all products and variations
+- **Deleting a shipping zone** removes all methods and locations in that zone
+- **Batch operations** (`batch_update_attribute_terms`, `batch_update_variations`) can create, update, AND delete in a single call
+
+### API Key Permissions
+
+For maximum safety, create WooCommerce API keys with only the permissions you need:
+- **Read-only exploration**: Create a key with **Read** permissions only
+- **Full management**: Use **Read/Write** permissions
+
 ## Available Tools (100)
 
 | Domain | Tools |
@@ -173,8 +212,8 @@ Every tool is annotated with behavior hints so AI agents can make safe decisions
 | Annotation | Meaning | Applied to |
 | --- | --- | --- |
 | `readOnlyHint` | No side effects, safe to call anytime | All `list_*`, `get_*`, and report tools (46) |
-| `destructiveHint` | Deletes or removes data | All `delete_*` tools + `cleanup_orphaned_media` (18) |
-| `idempotentHint` | Safe to retry, same result each time | All `update_*` and `batch_update_*` tools (15) |
+| `destructiveHint` | Deletes or removes data | All `delete_*` tools + `cleanup_orphaned_media` + `run_system_tool` + `batch_update_*` (21) |
+| `idempotentHint` | Safe to retry, same result each time | All `update_*` tools (15) |
 
 All tools also set `openWorldHint: false` — they only interact with WooCommerce, no external side effects.
 
@@ -192,6 +231,7 @@ All tools also set `openWorldHint: false` — they only interact with WooCommerc
 | `MCP_TRANSPORT` | No | Set to `http` for remote HTTP access (default: `stdio`) |
 | `MCP_PORT` | No | HTTP server port (default: `3000`) |
 | `MCP_AUTH_TOKEN` | No* | Bearer token for HTTP auth (*required when `MCP_TRANSPORT=http`) |
+| `WOOCOMMERCE_MCP_READ_ONLY` | No | Set to `true` to block all write/delete operations (safe exploration mode) |
 
 ### Using a `.env` file
 

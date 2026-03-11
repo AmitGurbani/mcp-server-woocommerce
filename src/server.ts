@@ -29,6 +29,25 @@ export function createServer(): McpServer {
     version: '1.0.0',
   });
 
+  if (process.env.WOOCOMMERCE_MCP_READ_ONLY === 'true') {
+    const originalRegisterTool = server.registerTool.bind(server);
+    (server as any).registerTool = (name: string, config: any, callback: any) => {
+      if (config.annotations?.readOnlyHint === true) {
+        return originalRegisterTool(name, config, callback);
+      }
+      const blockedCallback = async () => ({
+        content: [
+          {
+            type: 'text' as const,
+            text: `[READ-ONLY MODE] The tool "${name}" is blocked because WOOCOMMERCE_MCP_READ_ONLY is enabled. This tool modifies data. Disable read-only mode to use it.`,
+          },
+        ],
+        isError: true,
+      });
+      return (originalRegisterTool as any)(name, config, blockedCallback);
+    };
+  }
+
   registerProductTools(server);
   registerCategoryTools(server);
   registerOrderTools(server);

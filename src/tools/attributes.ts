@@ -191,7 +191,7 @@ export function registerAttributeTools(server: McpServer) {
     {
       description:
         'Batch create, update, or delete attribute terms in a single request. More efficient than individual create/delete calls for multiple terms.',
-      annotations: { openWorldHint: false },
+      annotations: { destructiveHint: true, openWorldHint: false },
       inputSchema: {
         attribute_id: z.number().describe('Parent attribute ID'),
         create: z
