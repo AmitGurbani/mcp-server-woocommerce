@@ -33,10 +33,7 @@ export function registerSystemStatusTools(server: McpServer) {
     },
     async ({ fields }) => {
       const f = resolveFields(fields, SYSTEM_STATUS_FIELDS);
-      return await handleRequest(
-        wooApi.get('system_status', { _fields: f.join(',') }),
-        f
-      );
+      return await handleRequest(wooApi.get('system_status', { _fields: f.join(',') }), f);
     }
   );
 
@@ -57,10 +54,7 @@ export function registerSystemStatusTools(server: McpServer) {
     },
     async ({ fields }) => {
       const f = resolveFields(fields, SYSTEM_TOOL_FIELDS);
-      return await handleRequest(
-        wooApi.get('system_status/tools', { _fields: f.join(',') }),
-        f
-      );
+      return await handleRequest(wooApi.get('system_status/tools', { _fields: f.join(',') }), f);
     }
   );
 

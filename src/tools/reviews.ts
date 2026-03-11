@@ -25,10 +25,7 @@ export function registerReviewTools(server: McpServer) {
         'List product reviews. Filter by product IDs, status, or search term. Use fields param to request only needed fields.',
       annotations: { readOnlyHint: true, openWorldHint: false },
       inputSchema: {
-        product: z
-          .array(z.number())
-          .optional()
-          .describe('Filter by product IDs'),
+        product: z.array(z.number()).optional().describe('Filter by product IDs'),
         status: reviewStatusEnum
           .optional()
           .describe('Filter by review status (all, hold, approved, spam, trash)'),
@@ -78,10 +75,7 @@ export function registerReviewTools(server: McpServer) {
     },
     async ({ id, fields }) => {
       const f = resolveFields(fields, REVIEW_FIELDS);
-      return await handleRequest(
-        wooApi.get(`products/reviews/${id}`, { _fields: f.join(',') }),
-        f
-      );
+      return await handleRequest(wooApi.get(`products/reviews/${id}`, { _fields: f.join(',') }), f);
     }
   );
 
@@ -93,17 +87,9 @@ export function registerReviewTools(server: McpServer) {
       annotations: { idempotentHint: true, openWorldHint: false },
       inputSchema: {
         id: z.number().describe('Review ID'),
-        status: z
-          .enum(['approved', 'hold', 'spam', 'trash'])
-          .optional()
-          .describe('Review status'),
+        status: z.enum(['approved', 'hold', 'spam', 'trash']).optional().describe('Review status'),
         review: z.string().optional().describe('Review content (HTML allowed)'),
-        rating: z
-          .number()
-          .min(0)
-          .max(5)
-          .optional()
-          .describe('Review rating (0-5)'),
+        rating: z.number().min(0).max(5).optional().describe('Review rating (0-5)'),
         fields: z.string().optional().describe('Comma-separated fields to return in response'),
       },
     },
@@ -131,10 +117,7 @@ export function registerReviewTools(server: McpServer) {
     },
     async ({ id, force, fields }) => {
       const f = resolveFields(fields, REVIEW_FIELDS);
-      return await handleRequest(
-        wooApi.delete(`products/reviews/${id}`, { force }),
-        f
-      );
+      return await handleRequest(wooApi.delete(`products/reviews/${id}`, { force }), f);
     }
   );
 }

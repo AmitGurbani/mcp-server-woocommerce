@@ -95,10 +95,7 @@ export function registerRefundTools(server: McpServer) {
     },
     async ({ order_id, id, force, fields }) => {
       const f = resolveFields(fields, REFUND_FIELDS);
-      return await handleRequest(
-        wooApi.delete(`orders/${order_id}/refunds/${id}`, { force }),
-        f
-      );
+      return await handleRequest(wooApi.delete(`orders/${order_id}/refunds/${id}`, { force }), f);
     }
   );
 }

@@ -73,10 +73,7 @@ export function registerOrderNoteTools(server: McpServer) {
     },
     async ({ order_id, id, force, fields }) => {
       const f = resolveFields(fields, ORDER_NOTE_FIELDS);
-      return await handleRequest(
-        wooApi.delete(`orders/${order_id}/notes/${id}`, { force }),
-        f
-      );
+      return await handleRequest(wooApi.delete(`orders/${order_id}/notes/${id}`, { force }), f);
     }
   );
 }

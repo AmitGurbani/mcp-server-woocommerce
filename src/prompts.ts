@@ -122,8 +122,12 @@ Step 2 — Check existing refunds:
 - Determine remaining refundable amount
 
 Step 3 — Process the refund:
-${refund_type === 'full' ? `- Use create_order_refund with order_id: ${order_id} (omit amount for full refund)` : `- Ask for the specific amount and/or line items to refund
-- Use create_order_refund with order_id: ${order_id}, amount: "<amount>", and optionally line_items`}
+${
+  refund_type === 'full'
+    ? `- Use create_order_refund with order_id: ${order_id} (omit amount for full refund)`
+    : `- Ask for the specific amount and/or line items to refund
+- Use create_order_refund with order_id: ${order_id}, amount: "<amount>", and optionally line_items`
+}
 - Include a reason for the refund
 - api_refund=true will automatically refund via the payment gateway
 

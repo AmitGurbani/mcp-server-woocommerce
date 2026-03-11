@@ -22,18 +22,14 @@ export function registerDataTools(server: McpServer) {
     },
     async ({ fields }) => {
       const f = resolveFields(fields, COUNTRY_FIELDS);
-      return await handleRequest(
-        wooApi.get('data/countries', { _fields: f.join(',') }),
-        f
-      );
+      return await handleRequest(wooApi.get('data/countries', { _fields: f.join(',') }), f);
     }
   );
 
   server.registerTool(
     'list_currencies',
     {
-      description:
-        'List all currencies supported by WooCommerce with their codes and symbols.',
+      description: 'List all currencies supported by WooCommerce with their codes and symbols.',
       annotations: { readOnlyHint: true, openWorldHint: false },
       inputSchema: {
         fields: z
@@ -44,10 +40,7 @@ export function registerDataTools(server: McpServer) {
     },
     async ({ fields }) => {
       const f = resolveFields(fields, CURRENCY_FIELDS);
-      return await handleRequest(
-        wooApi.get('data/currencies', { _fields: f.join(',') }),
-        f
-      );
+      return await handleRequest(wooApi.get('data/currencies', { _fields: f.join(',') }), f);
     }
   );
 }

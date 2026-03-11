@@ -30,10 +30,7 @@ export function registerPaymentGatewayTools(server: McpServer) {
     },
     async ({ fields }) => {
       const f = resolveFields(fields, PAYMENT_GATEWAY_LIST_FIELDS);
-      return await handleRequest(
-        wooApi.get('payment_gateways', { _fields: f.join(',') }),
-        f
-      );
+      return await handleRequest(wooApi.get('payment_gateways', { _fields: f.join(',') }), f);
     }
   );
 
@@ -55,10 +52,7 @@ export function registerPaymentGatewayTools(server: McpServer) {
     },
     async ({ id, fields }) => {
       const f = resolveFields(fields, PAYMENT_GATEWAY_FIELDS);
-      return await handleRequest(
-        wooApi.get(`payment_gateways/${id}`, { _fields: f.join(',') }),
-        f
-      );
+      return await handleRequest(wooApi.get(`payment_gateways/${id}`, { _fields: f.join(',') }), f);
     }
   );
 

@@ -139,7 +139,10 @@ describe('registerOrderNoteTools', () => {
 
     it('returns error on API failure', async () => {
       const error: any = new Error('Not found');
-      error.response = { data: { code: 'woocommerce_rest_invalid_id', message: 'Invalid note ID' }, status: 404 };
+      error.response = {
+        data: { code: 'woocommerce_rest_invalid_id', message: 'Invalid note ID' },
+        status: 404,
+      };
       mockedWooApi.delete.mockRejectedValue(error);
 
       const handler = registeredTools.get('delete_order_note')!.handler;
