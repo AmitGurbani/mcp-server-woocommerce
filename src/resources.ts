@@ -126,6 +126,73 @@ EXTERNAL — A product sold on another website.
   );
 
   server.registerResource(
+    'Refund Schema',
+    'woo://schema/refund',
+    { description: 'Refund field reference for WooCommerce REST API' },
+    async () => ({
+      contents: [
+        {
+          uri: 'woo://schema/refund',
+          mimeType: 'text/plain',
+          text: `WooCommerce Refund Fields:
+
+Core: id, date_created, amount, reason, refunded_by
+Line Items: line_items [{id, refund_total, quantity}]
+Payment: refunded_payment (boolean)
+
+Refund lifecycle:
+- api_refund=true (default): Automatically refunds via the payment gateway
+- api_refund=false: Records the refund in WooCommerce only (manual refund)
+
+Partial vs full refund:
+- Omit amount to refund the full order total
+- Specify amount as a string (e.g. "15.00") for partial refund
+- Use line_items to refund specific items: id is the order line item ID, not the product ID
+
+Key rules:
+- amount is a string, not a number
+- line_items.id refers to the order's line_items[].id, not the product_id
+- Multiple partial refunds can be issued against the same order
+- Deleting a refund removes the record but does NOT reverse the payment`,
+        },
+      ],
+    })
+  );
+
+  server.registerResource(
+    'Payment Gateways Reference',
+    'woo://reference/payment-gateways',
+    { description: 'Payment gateway IDs and concepts for WooCommerce' },
+    async () => ({
+      contents: [
+        {
+          uri: 'woo://reference/payment-gateways',
+          mimeType: 'text/plain',
+          text: `WooCommerce Payment Gateways:
+
+Built-in gateway IDs:
+- bacs: Direct bank transfer (manual payment)
+- cheque: Check payments (manual payment)
+- cod: Cash on delivery
+- paypal: PayPal Standard
+
+Common plugin gateway IDs:
+- stripe: Stripe (credit cards, Apple Pay, Google Pay)
+- razorpay: Razorpay (UPI, cards, netbanking — popular in India)
+
+Key concepts:
+- Gateways are provided by plugins — cannot create or delete via API
+- Use list_payment_gateways to see all available gateways
+- Gateway IDs are strings (not numbers)
+- Use update_payment_gateway to enable/disable or change settings
+- Settings are key-value string pairs specific to each gateway
+- order field controls display order at checkout`,
+        },
+      ],
+    })
+  );
+
+  server.registerResource(
     'Order Statuses Reference',
     'woo://reference/order-statuses',
     { description: 'Order status lifecycle and transitions' },

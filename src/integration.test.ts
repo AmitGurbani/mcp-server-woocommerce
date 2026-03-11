@@ -37,6 +37,16 @@ import { registerAttributeTools } from './tools/attributes.js';
 import { registerVariationTools } from './tools/variations.js';
 import { registerTagTools } from './tools/tags.js';
 import { registerBrandTools } from './tools/brands.js';
+import { registerShippingTools } from './tools/shipping.js';
+import { registerTaxTools } from './tools/taxes.js';
+import { registerWebhookTools } from './tools/webhooks.js';
+import { registerSettingsTools } from './tools/settings.js';
+import { registerRefundTools } from './tools/refunds.js';
+import { registerOrderNoteTools } from './tools/order-notes.js';
+import { registerPaymentGatewayTools } from './tools/payment-gateways.js';
+import { registerReviewTools } from './tools/reviews.js';
+import { registerSystemStatusTools } from './tools/system-status.js';
+import { registerDataTools } from './tools/data.js';
 
 describe('Integration: all tools register and respond via MCP transport', () => {
   let client: Client;
@@ -57,6 +67,16 @@ describe('Integration: all tools register and respond via MCP transport', () => 
     registerVariationTools(server);
     registerTagTools(server);
     registerBrandTools(server);
+    registerShippingTools(server);
+    registerTaxTools(server);
+    registerWebhookTools(server);
+    registerSettingsTools(server);
+    registerRefundTools(server);
+    registerOrderNoteTools(server);
+    registerPaymentGatewayTools(server);
+    registerReviewTools(server);
+    registerSystemStatusTools(server);
+    registerDataTools(server);
 
     [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
 
@@ -72,7 +92,7 @@ describe('Integration: all tools register and respond via MCP transport', () => 
 
   it('lists all registered tools', async () => {
     const { tools } = await client.listTools();
-    expect(tools.length).toBeGreaterThanOrEqual(50);
+    expect(tools.length).toBeGreaterThanOrEqual(100);
 
     const toolNames = tools.map((t) => t.name);
     // Spot-check one tool from each module
@@ -87,6 +107,16 @@ describe('Integration: all tools register and respond via MCP transport', () => 
     expect(toolNames).toContain('list_variations');
     expect(toolNames).toContain('list_tags');
     expect(toolNames).toContain('list_brands');
+    expect(toolNames).toContain('list_shipping_zones');
+    expect(toolNames).toContain('list_tax_classes');
+    expect(toolNames).toContain('list_webhooks');
+    expect(toolNames).toContain('list_setting_groups');
+    expect(toolNames).toContain('list_order_refunds');
+    expect(toolNames).toContain('list_order_notes');
+    expect(toolNames).toContain('list_payment_gateways');
+    expect(toolNames).toContain('list_product_reviews');
+    expect(toolNames).toContain('get_system_status');
+    expect(toolNames).toContain('list_countries');
   });
 
   it('can call list_products tool', async () => {

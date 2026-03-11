@@ -14,7 +14,7 @@ Your job is to grow the WooCommerce MCP Server's reach, ecosystem presence, and 
 ## Key Context
 
 - **Project**: `mcp-server-woocommerce` — TypeScript MCP server for WooCommerce store management
-- **54 tools** across 10 modules: products, categories, tags, brands, attributes, variations, orders, customers, coupons, reports, media
+- **100 tools** across 21 modules: products, categories, tags, brands, attributes, variations, orders, refunds, order notes, customers, coupons, reviews, payment gateways, reports, media, shipping, taxes, webhooks, settings, system status, data
 - **Target users**: Developers and store owners using MCP-compatible AI tools
 - **Differentiator**: Comprehensive WooCommerce coverage with field filtering for token optimization
 

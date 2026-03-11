@@ -23,12 +23,14 @@ Name `mcp-server-woocommerce` is taken by hlos-ai. We use the scoped package nam
 | Registry | Status | Action Required |
 |----------|--------|----------------|
 | Official MCP Registry | ✅ Published | `io.github.AmitGurbani/mcp-server-woocommerce` |
-| Smithery | ⏳ Skipped | Web form requires hosted HTTP URL; CLI available |
-| Cursor Directory | ⏳ Submitted | Pending review |
-| Glama | ⏳ Pending | Auto-syncs from Official Registry, or submit manually |
+| Glama | ✅ Auto-synced | Listed under E-commerce Solutions via Official Registry |
 | PulseMCP | ✅ Auto | Auto-crawls Official Registry |
-| awesome-mcp-servers | ⏳ Pending | Submit PR to punkpeye/awesome-mcp-servers |
 | Windsurf | ✅ Auto | Auto-syncs from Official Registry |
+| Cursor Directory | ⏳ Submitted | Submitted March 10; verify by March 12-13, re-submit if not visible |
+| Smithery | ⏭️ Skipped | Web form requires hosted HTTP URL; revisit after Streamable HTTP |
+| mcp.so | ❗ Not Submitted | A generic "WooCommerce" slug exists — submit ours as comprehensive alternative via mcp.so/submit |
+| awesome-mcp-servers | ❗ Not Submitted | Techspawn already listed in E-commerce section; submit PR with our entry |
+| MCP Market | ⏳ Pending | Monitor — may not be accepting submissions yet |
 
 ## Priority 1: Core Registries
 
@@ -122,7 +124,7 @@ Primary destination for Cursor IDE users. Supports "Add MCP" web interface.
 
 **Ready-to-use entry** (copy-paste into README.md):
 ```
-- [AmitGurbani/mcp-server-woocommerce](https://github.com/AmitGurbani/mcp-server-woocommerce) 📇 ☁️ - Comprehensive WooCommerce MCP server with 82 tools for store management — products, orders, customers, coupons, shipping, taxes, and more. Features token-optimized field filtering (60-97% savings), 5 MCP resources, 3 guided prompts, and tool annotations.
+- [AmitGurbani/mcp-server-woocommerce](https://github.com/AmitGurbani/mcp-server-woocommerce) 📇 ☁️ - Comprehensive WooCommerce MCP server with 100 tools for store management — products, orders, customers, coupons, shipping, taxes, and more. Features token-optimized field filtering (60-97% savings), 7 MCP resources, 5 guided prompts, and tool annotations.
 ```
 
 ### Cline Marketplace
@@ -138,17 +140,17 @@ Built into Windsurf IDE; primarily pulls from Official MCP Registry and Smithery
 ## Key Differentiators (for registry descriptions)
 
 Use these points in all submissions:
-- **82 tools** across 14 domains — most comprehensive WooCommerce MCP server
+- **100 tools** across 20 domains — most comprehensive WooCommerce MCP server
 - **Token optimization** — field filtering reduces response size by 60-97%
-- **MCP resources** — 5 schema references for agent context
-- **Guided prompts** — 3 multi-step workflows for common operations
+- **MCP resources** — 7 schema references for agent context
+- **Guided prompts** — 5 multi-step workflows for common operations
 - **Tool annotations** — readOnly, destructive, idempotent hints for safe AI behavior
 - **Actionable errors** — error responses include fix guidance
-- **Full CRUD** — products, categories, tags, brands, attributes, variations, orders, customers, coupons, reports, media, shipping, taxes, webhooks, settings
+- **Full CRUD** — products, categories, tags, brands, attributes, variations, orders, refunds, order notes, customers, coupons, reviews, payment gateways, reports, media, shipping, taxes, webhooks, settings, system status, data
 
 ### Registry Description Template
 
-> Comprehensive WooCommerce MCP server with 82 tools for full store management — products, orders, customers, coupons, categories, tags, brands, attributes, variations, reports, media, shipping, taxes, webhooks, and settings. Features token-optimized field filtering (60-97% savings), 5 MCP resources, 3 guided prompts, tool annotations, and actionable error messages.
+> Comprehensive WooCommerce MCP server with 100 tools for full store management — products, orders, refunds, notes, customers, coupons, reviews, categories, tags, brands, attributes, variations, payment gateways, reports, media, shipping, taxes, webhooks, settings, system status, and data. Features token-optimized field filtering (60-97% savings), 7 MCP resources, 5 guided prompts, tool annotations, and actionable error messages.
 
 ## Landscape (March 2026)
 
@@ -156,12 +158,27 @@ Other WooCommerce MCP servers in the ecosystem:
 
 | Server | Tools | Field Filtering | Resources | Prompts | Annotations | Stack |
 |--------|-------|----------------|-----------|---------|-------------|-------|
-| **@amitgurbani/mcp-server-woocommerce** | 82 | Yes (60-97%) | 5 | 3 | Yes | TypeScript |
-| Techspawn/Opestro (Smithery) | 91+ | No | No | No | No | Node.js |
-| Automattic (native, WC 10.3+) | ~15 | No | No | No | No | Node.js |
-| hlos-ai (npm) | ~30 | No | No | No | No | Node.js |
-| saifnasserer/Woo-MCP | ~20 | No | No | No | No | Python/FastMCP |
+| **@amitgurbani/mcp-server-woocommerce** | 100 | Yes (60-97%) | 7 | 5 | Yes | TypeScript |
+| Techspawn/Opestro (Smithery) | 91+ | No | No | No | Yes | Node.js (TS) |
+| Automattic (native, WC 10.6+) | ~15-20 | No | No | No | No | PHP/Proxy |
+| hlos-ai (npm) | 30+ | No | No | No | No | Python 3.13+ |
+| MseeP.ai | ~28-30 | No | No | No | No | Node.js |
+| saifnasserer/Woo-MCP | ~25 | No | No | No | No | Python/FastMCP |
 | Webkul | ~25 | No | No | No | No | Python/FastMCP |
-| CData | ~10 | No | No | No | No | SQL-like read-only |
+| InstaWP WordPress MCP | Varies | No | No | No | No | Managed |
+| LobeHub WooCommerce MCP | ~20 | No | No | No | No | TypeScript |
+| CData | N/A (SQL) | No | No | No | No | SQL-like read-only |
 
-**Our positioning**: Quality over quantity — token optimization, MCP resources/prompts/annotations, actionable errors, and TypeScript/npx ecosystem compatibility. No other server offers field filtering, resources, prompts, or tool annotations.
+### Key Trends (March 11, 2026)
+- **Techspawn leads on raw tool count** (91+) with tool annotations + OAuth 2.1 + Streamable HTTP + JSON-RPC batching
+- **Automattic expanding native MCP** — WC 10.6.0 (March 10), WordPress 7.0 Beta 3, ~15-20 tools in "Beta" via Abilities API; local proxy (`@automattic/mcp-wordpress-remote`) now available
+- **New entrants**: InstaWP (agency multi-site management), LobeHub WooCommerce MCP (modular TypeScript), Vostos007 (Express HTTP wrapper)
+- **hlos-ai specializing**: Optimized for high-volume stores (7,000+ products) with AI data enhancement for batch SEO
+- **FastMCP (Python) growing**: Multiple Python-based servers targeting SEO auditing and BI reporting niches
+- **Transport shift**: Servers increasingly support both stdio (local) and HTTP/SSE (cloud); Streamable HTTP becoming standard
+- **No-code emergence**: OttoKit and n8n now offer MCP Builders for WooCommerce
+- **MCP ecosystem**: 10,000+ servers in official registry, C# SDK v1.0 GA, WebMCP in Chrome 146 Canary, Tasks primitive for durable state, Server Cards UI standard adopted by Cursor/LobeHub/Claude Code
+- **Security**: CVE-2026-26118 (SSRF in Azure MCP servers) and CVE-2026-26144 (Excel/Copilot data exfiltration) patched March 11
+- **SDK adoption**: Python and TypeScript MCP SDKs reached 97 million monthly downloads
+
+**Our positioning**: Quality AND quantity — 100 tools with token optimization, MCP resources/prompts/annotations, actionable errors, and TypeScript/npx ecosystem compatibility. No other server offers field filtering, MCP resources, or MCP prompts. Techspawn now has annotations but still lacks filtering/resources/prompts.

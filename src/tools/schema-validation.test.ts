@@ -20,6 +20,16 @@ import { registerAttributeTools } from './attributes.js';
 import { registerVariationTools } from './variations.js';
 import { registerTagTools } from './tags.js';
 import { registerBrandTools } from './brands.js';
+import { registerShippingTools } from './shipping.js';
+import { registerTaxTools } from './taxes.js';
+import { registerWebhookTools } from './webhooks.js';
+import { registerSettingsTools } from './settings.js';
+import { registerRefundTools } from './refunds.js';
+import { registerOrderNoteTools } from './order-notes.js';
+import { registerPaymentGatewayTools } from './payment-gateways.js';
+import { registerReviewTools } from './reviews.js';
+import { registerSystemStatusTools } from './system-status.js';
+import { registerDataTools } from './data.js';
 
 // Expected tools per module
 const EXPECTED_TOOLS: Record<string, string[]> = {
@@ -61,6 +71,49 @@ const EXPECTED_TOOLS: Record<string, string[]> = {
   ],
   tags: ['list_tags', 'get_tag', 'create_tag', 'update_tag', 'delete_tag'],
   brands: ['list_brands', 'get_brand', 'create_brand', 'update_brand', 'delete_brand'],
+  shipping: [
+    'list_shipping_zones',
+    'get_shipping_zone',
+    'create_shipping_zone',
+    'update_shipping_zone',
+    'delete_shipping_zone',
+    'list_shipping_zone_methods',
+    'add_shipping_zone_method',
+    'update_shipping_zone_method',
+    'delete_shipping_zone_method',
+    'list_shipping_classes',
+    'create_shipping_class',
+    'delete_shipping_class',
+  ],
+  taxes: [
+    'list_tax_classes',
+    'create_tax_class',
+    'delete_tax_class',
+    'list_tax_rates',
+    'get_tax_rate',
+    'create_tax_rate',
+    'update_tax_rate',
+    'delete_tax_rate',
+  ],
+  webhooks: [
+    'list_webhooks',
+    'get_webhook',
+    'create_webhook',
+    'update_webhook',
+    'delete_webhook',
+  ],
+  settings: ['list_setting_groups', 'get_settings', 'update_setting'],
+  refunds: ['list_order_refunds', 'create_order_refund', 'delete_order_refund'],
+  order_notes: ['list_order_notes', 'create_order_note', 'delete_order_note'],
+  payment_gateways: ['list_payment_gateways', 'get_payment_gateway', 'update_payment_gateway'],
+  reviews: [
+    'list_product_reviews',
+    'get_product_review',
+    'update_product_review',
+    'delete_product_review',
+  ],
+  system_status: ['get_system_status', 'list_system_tools', 'run_system_tool'],
+  data: ['list_countries', 'list_currencies'],
 };
 
 const TOTAL_EXPECTED_TOOLS = Object.values(EXPECTED_TOOLS).flat().length;
@@ -94,6 +147,16 @@ describe('Tool schema validation', () => {
     registerVariationTools(server);
     registerTagTools(server);
     registerBrandTools(server);
+    registerShippingTools(server);
+    registerTaxTools(server);
+    registerWebhookTools(server);
+    registerSettingsTools(server);
+    registerRefundTools(server);
+    registerOrderNoteTools(server);
+    registerPaymentGatewayTools(server);
+    registerReviewTools(server);
+    registerSystemStatusTools(server);
+    registerDataTools(server);
   });
 
   it(`registers exactly ${TOTAL_EXPECTED_TOOLS} tools total`, () => {

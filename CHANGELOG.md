@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **82 MCP tools** across 14 domains:
+- **100 MCP tools** across 14 domains:
   - Products — CRUD, search, filtering, stock management
   - Orders — CRUD, status transitions, line items, notes
   - Customers — CRUD, search, order history
@@ -24,16 +24,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Webhooks — create, manage, and monitor webhook subscriptions
   - Settings — read and update store configuration
   - Reports — sales summaries, top sellers, totals
+  - Order Refunds — list, create, and delete refunds on orders
+  - Order Notes — list, create, and delete order notes
+  - Product Reviews — list, get, update, and delete product reviews
+  - Payment Gateways — list, get, and update payment gateway settings
+  - System Status — get system status, list and run system tools
+  - Data — list countries and currencies
   - Media — WordPress media library upload and management
-- **5 MCP resources** for agent context:
+- **7 MCP resources** for agent context:
   - Product, order, and coupon field schemas
+  - Refund field schema
   - Product types reference
   - Order statuses reference
-- **3 MCP prompts** for guided workflows:
+  - Payment gateways reference
+- **5 MCP prompts** for guided workflows:
   - `setup_variable_product` — step-by-step variable product creation
   - `process_order` — order processing workflow
   - `catalog_overview` — store catalog analysis
-- **Tool annotations** on all 82 tools (`readOnlyHint`, `destructiveHint`, `idempotentHint`, `openWorldHint`)
+  - `handle_refund` — guided refund processing workflow
+  - `moderate_reviews` — product review moderation workflow
+- **Tool annotations** on all 100 tools (`readOnlyHint`, `destructiveHint`, `idempotentHint`, `openWorldHint`)
 - **Response field filtering** with configurable `fields` parameter — 60-97% token savings
 - **Actionable error messages** mapping WooCommerce error codes to fix guidance
 - **Docker support** with multi-stage build

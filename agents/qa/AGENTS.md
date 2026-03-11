@@ -13,6 +13,7 @@ Your job is to ensure code quality, correctness, and security across the WooComm
 ## Key Context
 
 - **Codebase**: TypeScript MCP server for WooCommerce (`src/` directory)
+- **100 tools** across 21 modules: products, categories, tags, brands, attributes, variations, orders, refunds, order notes, customers, coupons, reviews, payment gateways, reports, media, shipping, taxes, webhooks, settings, system status, data
 - **Build**: `pnpm build`
 - **Architecture**: See project `CLAUDE.md` for patterns — `src/services/base.ts` (shared utils), `src/tools/*.ts` (tool modules), `src/server.ts` (registration)
 - **Conventions**: Each tool file exports `register*Tools(server)`. Tools use `handleListRequest`/`handleRequest` from base.ts. Field filtering via `resolveFields()`.

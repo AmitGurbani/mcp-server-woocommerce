@@ -14,7 +14,7 @@ Your job is to make the WooCommerce MCP Server easy to discover, understand, and
 ## Key Context
 
 - **Codebase**: TypeScript MCP server for WooCommerce (`src/` directory)
-- **54 tools** across 10 modules: products, categories, tags, brands, attributes, variations, orders, customers, coupons, reports, media
+- **100 tools** across 21 modules: products, categories, tags, brands, attributes, variations, orders, refunds, order notes, customers, coupons, reviews, payment gateways, reports, media, shipping, taxes, webhooks, settings, system status, data
 - **Architecture**: See project `CLAUDE.md` for patterns
 - **Target audience**: Developers using MCP-compatible AI tools (Claude Code, etc.) to manage WooCommerce stores
 

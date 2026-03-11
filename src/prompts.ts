@@ -96,6 +96,90 @@ Show me the order details and recommend the appropriate next action.`,
   );
 
   server.registerPrompt(
+    'handle_refund',
+    {
+      description: 'Guided workflow to process a refund for an order',
+      argsSchema: {
+        order_id: z.string().describe('Order ID to refund'),
+        refund_type: z.enum(['full', 'partial']).describe('Full or partial refund'),
+      },
+    },
+    ({ order_id, refund_type }) => ({
+      messages: [
+        {
+          role: 'user',
+          content: {
+            type: 'text',
+            text: `Process a ${refund_type} refund for order #${order_id}.
+
+Step 1 — Review the order:
+- Use get_order with id: ${order_id}, fields: "id,status,total,line_items,payment_method,refunds"
+- Check the current status, total amount, and any existing refunds
+
+Step 2 — Check existing refunds:
+- Use list_order_refunds with order_id: ${order_id}
+- Calculate how much has already been refunded
+- Determine remaining refundable amount
+
+Step 3 — Process the refund:
+${refund_type === 'full' ? `- Use create_order_refund with order_id: ${order_id} (omit amount for full refund)` : `- Ask for the specific amount and/or line items to refund
+- Use create_order_refund with order_id: ${order_id}, amount: "<amount>", and optionally line_items`}
+- Include a reason for the refund
+- api_refund=true will automatically refund via the payment gateway
+
+Step 4 — Verify the result:
+- Use list_order_refunds with order_id: ${order_id} to confirm the refund was created
+- Use get_order with id: ${order_id}, fields: "id,status,total,refunds" to check updated order status
+
+Show the order details and guide me through the refund process.`,
+          },
+        },
+      ],
+    })
+  );
+
+  server.registerPrompt(
+    'moderate_reviews',
+    {
+      description: 'Guided workflow to moderate pending product reviews',
+    },
+    async () => ({
+      messages: [
+        {
+          role: 'user',
+          content: {
+            type: 'text',
+            text: `Moderate pending product reviews.
+
+Step 1 — Fetch pending reviews:
+- Use list_product_reviews with status: "hold" to get all reviews awaiting moderation
+- Show each review with: reviewer name, product name, rating, review text
+
+Step 2 — Evaluate each review:
+- For each pending review, assess:
+  - Is it a genuine customer review? (approve)
+  - Is it spam or promotional? (mark as spam)
+  - Is it inappropriate or offensive? (trash)
+  - Is it a legitimate but negative review? (still approve — honest feedback is valuable)
+
+Step 3 — Take action:
+- Use update_product_review to change status for each review:
+  - "approved" for genuine reviews
+  - "spam" for spam/promotional content
+  - "trash" for inappropriate content
+
+Step 4 — Summarize:
+- Report how many reviews were: approved, marked as spam, trashed
+- Highlight any reviews that need human judgment
+
+Show me all pending reviews and recommend actions for each.`,
+          },
+        },
+      ],
+    })
+  );
+
+  server.registerPrompt(
     'catalog_overview',
     {
       description: 'Get a quick overview of the product catalog, categories, and recent orders',

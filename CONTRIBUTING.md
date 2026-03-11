@@ -37,8 +37,18 @@ src/
     ├── attributes.ts     # Global attributes + terms
     ├── variations.ts     # Product variation CRUD + batch
     ├── orders.ts         # Order CRUD tools
+    ├── refunds.ts        # Order refund tools
+    ├── order-notes.ts    # Order note tools
     ├── customers.ts      # Customer CRUD tools
     ├── coupons.ts        # Coupon CRUD tools
+    ├── reviews.ts        # Product review tools
+    ├── payment-gateways.ts # Payment gateway tools
+    ├── shipping.ts       # Shipping zones, methods, classes
+    ├── taxes.ts          # Tax rates and classes
+    ├── webhooks.ts       # Webhook CRUD tools
+    ├── settings.ts       # Store settings tools
+    ├── system-status.ts  # System status and tools
+    ├── data.ts           # Countries and currencies
     ├── reports.ts        # Sales reports + top sellers
     └── media.ts          # WordPress media management
 ```
@@ -273,7 +283,13 @@ Tests live alongside source files as `*.test.ts`. Key test files:
 - `src/services/base.test.ts` — tests for shared helpers (`resolveFields`, `handleRequest`, `handleListRequest`)
 - `src/tools/products.test.ts` — product CRUD tool tests (good template for new tools)
 - `src/tools/orders.test.ts` — order tool tests
-- `src/tools/schema-validation.test.ts` — validates all 54 tools register correctly with proper schemas and naming conventions
+- `src/tools/refunds.test.ts` — order refund tool tests
+- `src/tools/order-notes.test.ts` — order note tool tests
+- `src/tools/reviews.test.ts` — product review tool tests
+- `src/tools/payment-gateways.test.ts` — payment gateway tool tests
+- `src/tools/system-status.test.ts` — system status tool tests
+- `src/tools/data.test.ts` — countries and currencies tool tests
+- `src/tools/schema-validation.test.ts` — validates all 100 tools register correctly with proper schemas and naming conventions
 - `src/resources.test.ts` — validates MCP resources register with correct URIs and content
 - `src/prompts.test.ts` — validates MCP prompts register with correct names and arguments
 
@@ -285,7 +301,7 @@ You can also use the [MCP Inspector](https://github.com/modelcontextprotocol/ins
 
 Looking for a way to start contributing? These areas are beginner-friendly:
 
-- **Add a new WooCommerce entity** — e.g., shipping zones, tax classes, payment gateways, refunds, webhooks. Each follows the same CRUD pattern shown above.
+- **Add a new WooCommerce entity** — e.g., downloadable files, product shipping classes, store notifications. Each follows the same CRUD pattern shown above.
 - **Improve field defaults** — Review `*_LIST_FIELDS` / `*_FIELDS` arrays for existing tools and suggest additions or removals based on real usage.
 - **Add a new MCP resource** — Create a schema reference in `src/resources.ts` for an undocumented WooCommerce entity (e.g., `woo://schema/customer`).
 - **Add a new MCP prompt** — Design a guided workflow in `src/prompts.ts` for a common multi-step operation (e.g., `bulk_price_update`, `inventory_audit`).

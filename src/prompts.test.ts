@@ -19,14 +19,16 @@ describe('registerPrompts', () => {
     registerPrompts(server);
   });
 
-  it('registers 3 prompts', () => {
-    expect(server.registerPrompt).toHaveBeenCalledTimes(3);
-    expect(registeredPrompts.size).toBe(3);
+  it('registers 5 prompts', () => {
+    expect(server.registerPrompt).toHaveBeenCalledTimes(5);
+    expect(registeredPrompts.size).toBe(5);
   });
 
   it('registers all expected prompt names', () => {
     expect(registeredPrompts.has('setup_variable_product')).toBe(true);
     expect(registeredPrompts.has('process_order')).toBe(true);
+    expect(registeredPrompts.has('handle_refund')).toBe(true);
+    expect(registeredPrompts.has('moderate_reviews')).toBe(true);
     expect(registeredPrompts.has('catalog_overview')).toBe(true);
   });
 
@@ -49,6 +51,21 @@ describe('registerPrompts', () => {
     const result = handler({ order_id: '42' });
     expect(result.messages).toHaveLength(1);
     expect(result.messages[0].content.text).toContain('42');
+  });
+
+  it('handle_refund returns messages with order ID and refund type', () => {
+    const { handler } = registeredPrompts.get('handle_refund')!;
+    const result = handler({ order_id: '100', refund_type: 'partial' });
+    expect(result.messages).toHaveLength(1);
+    expect(result.messages[0].content.text).toContain('100');
+    expect(result.messages[0].content.text).toContain('partial');
+  });
+
+  it('moderate_reviews returns messages without args', async () => {
+    const { handler } = registeredPrompts.get('moderate_reviews')!;
+    const result = await handler({});
+    expect(result.messages).toHaveLength(1);
+    expect(result.messages[0].content.text).toContain('list_product_reviews');
   });
 
   it('catalog_overview returns messages without args', async () => {

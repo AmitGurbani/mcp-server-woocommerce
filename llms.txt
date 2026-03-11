@@ -1,15 +1,15 @@
 # MCP Server for WooCommerce
 
-> A Model Context Protocol (MCP) server that enables AI assistants to manage WooCommerce stores through 82 tools, 5 resources, and 3 guided prompts.
+> A Model Context Protocol (MCP) server that enables AI assistants to manage WooCommerce stores through 100 tools, 7 resources, and 5 guided prompts.
 
-This TypeScript server wraps the WooCommerce REST API into MCP-compatible tools for products, orders, customers, coupons, shipping, taxes, webhooks, settings, reports, and media management. Every tool supports field filtering to minimize token usage. All tools are annotated with behavior hints (readOnlyHint, destructiveHint, idempotentHint) for safe autonomous operation.
+This TypeScript server wraps the WooCommerce REST API into MCP-compatible tools for products, orders, refunds, order notes, customers, coupons, reviews, payment gateways, shipping, taxes, webhooks, settings, system status, data, reports, and media management. Every tool supports field filtering to minimize token usage. All tools are annotated with behavior hints (readOnlyHint, destructiveHint, idempotentHint) for safe autonomous operation.
 
 ## Setup
 
 - [README](https://github.com/AmitGurbani/mcp-server-woocommerce#readme): Installation, configuration, and usage guide
 - [Contributing](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/CONTRIBUTING.md): Development setup and contribution guidelines
 
-## Tools (82)
+## Tools (100)
 
 - [Products](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/products.ts): List, get, create, update, delete products with support for attributes, default_attributes, and brands
 - [Categories](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/categories.ts): List, get, create, update, delete product categories (hierarchical)
@@ -18,28 +18,38 @@ This TypeScript server wraps the WooCommerce REST API into MCP-compatible tools 
 - [Attributes](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/attributes.ts): Global attributes and attribute terms with batch support
 - [Variations](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/variations.ts): Product variations CRUD and batch operations for variable products
 - [Orders](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/orders.ts): List, get, create, update orders with full line item and status management
+- [Order Refunds](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/refunds.ts): List, create, and delete order refunds
+- [Order Notes](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/order-notes.ts): List, create, and delete order notes
 - [Customers](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/customers.ts): List, get, create, update customer profiles
 - [Coupons](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/coupons.ts): List, get, create, update, delete discount coupons
+- [Product Reviews](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/reviews.ts): List, get, update, and delete product reviews
 - [Shipping](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/shipping.ts): Shipping zones, zone methods, and shipping classes
 - [Taxes](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/taxes.ts): Tax rates and tax classes management
 - [Webhooks](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/webhooks.ts): Create, manage, and monitor webhook subscriptions
+- [Payment Gateways](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/payment-gateways.ts): List, get, and update payment gateway settings
 - [Settings](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/settings.ts): Read and update WooCommerce store configuration
+- [System Status](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/system-status.ts): Get system status, list and run system tools
+- [Data](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/data.ts): List countries and currencies
 - [Reports](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/reports.ts): Sales reports, top sellers, order/product/customer totals
 - [Media](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/media.ts): List, delete, and cleanup orphaned media via WordPress REST API
 
-## Resources (5)
+## Resources (7)
 
 - Product Schema (`woo://schema/product`): Product fields, types, statuses, and key rules
 - Order Schema (`woo://schema/order`): Order fields, status lifecycle, and payment info
 - Coupon Schema (`woo://schema/coupon`): Coupon types, limits, restrictions, and rules
+- Refund Schema (`woo://schema/refund`): Refund fields, reasons, line items, and processing rules
 - Product Types Reference (`woo://reference/product-types`): When to use simple, variable, grouped, or external products
 - Order Statuses Reference (`woo://reference/order-statuses`): Order status transitions and lifecycle diagram
+- Payment Gateways Reference (`woo://reference/payment-gateways`): Available payment gateways and configuration options
 
-## Prompts (3)
+## Prompts (5)
 
 - `setup_variable_product`: End-to-end variable product creation (attribute, terms, product, variations, publish)
 - `process_order`: Review an order and recommend the appropriate status transition
 - `catalog_overview`: Parallel 5-tool dashboard of products, orders, customers, categories, and top sellers
+- `handle_refund`: Guided refund processing — review order, select items, create refund, verify
+- `moderate_reviews`: Review pending product reviews and recommend approve/update/delete actions
 
 ## Configuration
 

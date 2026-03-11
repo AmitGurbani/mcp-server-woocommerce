@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node](https://img.shields.io/badge/node-%3E%3D18-brightgreen)](https://nodejs.org)
 
-MCP server for managing WooCommerce stores through AI assistants like Claude. Provides 82 tools covering products, orders, customers, coupons, shipping, taxes, webhooks, settings, reports, and more.
+MCP server for managing WooCommerce stores through AI assistants like Claude. Provides 100 tools covering products, orders, customers, coupons, shipping, taxes, webhooks, settings, reports, and more.
 
 ## Quick Start
 
@@ -103,12 +103,12 @@ Add to your Claude Desktop config (`~/Library/Application Support/Claude/claude_
 - **Reports** — sales reports, top sellers, order/product/customer totals
 - **Media management** — list, delete, and cleanup orphaned media via WordPress REST API
 - **Token optimization** — all tools support a `fields` param to return only specific fields, reducing response size by 60-97%
-- **MCP resources** — schema references for products, orders, and coupons that agents can read for context
+- **MCP resources** — schema references for products, orders, coupons, refunds, and payment gateways that agents can read for context
 - **Guided prompts** — multi-step workflows for variable product setup, order processing, and catalog overview
-- **Tool annotations** — `readOnlyHint`, `destructiveHint`, and `idempotentHint` on all 82 tools for safe agent behavior
+- **Tool annotations** — `readOnlyHint`, `destructiveHint`, and `idempotentHint` on all 100 tools for safe agent behavior
 - **Actionable errors** — error responses include guidance on how to fix common issues
 
-## Available Tools (82)
+## Available Tools (100)
 
 | Domain | Tools |
 | --- | --- |
@@ -120,41 +120,51 @@ Add to your Claude Desktop config (`~/Library/Application Support/Claude/claude_
 | **Attribute Terms** | list, create, delete, batch update |
 | **Variations** | list, get, create, update, batch update |
 | **Orders** | list, get, create, update |
+| **Order Refunds** | list, create, delete |
+| **Order Notes** | list, create, delete |
 | **Customers** | list, get, create, update |
 | **Coupons** | list, get, create, update, delete |
+| **Product Reviews** | list, get, update, delete |
 | **Shipping Zones** | list, get, create, update, delete |
 | **Shipping Zone Methods** | list, get, create, update, delete |
 | **Shipping Classes** | list, create |
 | **Tax Rates** | list, get, create, update, delete |
 | **Tax Classes** | list, create, delete |
 | **Webhooks** | list, get, create, update, delete |
+| **Payment Gateways** | list, get, update |
 | **Settings** | list groups, get, update |
+| **System Status** | get status, list tools, run tool |
+| **Data** | list countries, list currencies |
 | **Reports** | sales, top sellers, order/product/customer totals |
 | **Media** | list, delete, cleanup orphaned |
 
 ## Resources
 
-The server exposes 5 MCP resources that provide schema references and guides for AI agents:
+The server exposes 7 MCP resources that provide schema references and guides for AI agents:
 
 | URI | Description |
 | --- | --- |
 | `woo://schema/product` | Product fields, types, statuses, and key rules |
 | `woo://schema/order` | Order fields, status lifecycle, and payment info |
 | `woo://schema/coupon` | Coupon types, limits, restrictions, and rules |
+| `woo://schema/refund` | Refund fields, reasons, line items, and processing rules |
 | `woo://reference/product-types` | When to use simple, variable, grouped, or external products |
 | `woo://reference/order-statuses` | Order status transitions and lifecycle diagram |
+| `woo://reference/payment-gateways` | Available payment gateways and their configuration options |
 
 Resources are read-only context that agents can fetch to understand WooCommerce data structures before making API calls.
 
 ## Prompts
 
-3 guided workflow prompts that orchestrate multi-step operations:
+5 guided workflow prompts that orchestrate multi-step operations:
 
 | Prompt | Args | What it does |
 | --- | --- | --- |
 | `setup_variable_product` | `product_name`, `attribute_name`, `variations` | Creates a variable product end-to-end: attribute → terms → product → variations → publish |
 | `process_order` | `order_id` | Reviews an order's details and recommends the appropriate status transition |
 | `catalog_overview` | _(none)_ | Runs 5 tools in parallel to produce a store dashboard (products, orders, customers, categories, top sellers) |
+| `handle_refund` | `order_id` | Guides through refund processing: review order, select items, create refund, verify |
+| `moderate_reviews` | _(none)_ | Reviews pending product reviews and recommends approve/update/delete actions |
 
 ## Tool Annotations
 
@@ -162,9 +172,9 @@ Every tool is annotated with behavior hints so AI agents can make safe decisions
 
 | Annotation | Meaning | Applied to |
 | --- | --- | --- |
-| `readOnlyHint` | No side effects, safe to call anytime | All `list_*`, `get_*`, and report tools (36) |
-| `destructiveHint` | Deletes or removes data | All `delete_*` tools + `cleanup_orphaned_media` (15) |
-| `idempotentHint` | Safe to retry, same result each time | All `update_*` and `batch_update_*` tools (13) |
+| `readOnlyHint` | No side effects, safe to call anytime | All `list_*`, `get_*`, and report tools (46) |
+| `destructiveHint` | Deletes or removes data | All `delete_*` tools + `cleanup_orphaned_media` (18) |
+| `idempotentHint` | Safe to retry, same result each time | All `update_*` and `batch_update_*` tools (15) |
 
 All tools also set `openWorldHint: false` — they only interact with WooCommerce, no external side effects.
 

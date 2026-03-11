@@ -19,16 +19,18 @@ describe('registerResources', () => {
     registerResources(server);
   });
 
-  it('registers 5 resources', () => {
-    expect(server.registerResource).toHaveBeenCalledTimes(5);
-    expect(registeredResources.size).toBe(5);
+  it('registers 7 resources', () => {
+    expect(server.registerResource).toHaveBeenCalledTimes(7);
+    expect(registeredResources.size).toBe(7);
   });
 
   it('registers all expected resource URIs', () => {
     expect(registeredResources.has('woo://schema/product')).toBe(true);
     expect(registeredResources.has('woo://schema/order')).toBe(true);
     expect(registeredResources.has('woo://schema/coupon')).toBe(true);
+    expect(registeredResources.has('woo://schema/refund')).toBe(true);
     expect(registeredResources.has('woo://reference/product-types')).toBe(true);
+    expect(registeredResources.has('woo://reference/payment-gateways')).toBe(true);
     expect(registeredResources.has('woo://reference/order-statuses')).toBe(true);
   });
 
