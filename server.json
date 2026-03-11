@@ -70,6 +70,21 @@
       "description": "WordPress Application Password (required for media tools)",
       "isRequired": false,
       "isSecret": true
+    },
+    "MCP_TRANSPORT": {
+      "description": "Transport mode: 'http' for remote access, omit for stdio (default)",
+      "isRequired": false,
+      "isSecret": false
+    },
+    "MCP_PORT": {
+      "description": "HTTP server port (default: 3000, only used when MCP_TRANSPORT=http)",
+      "isRequired": false,
+      "isSecret": false
+    },
+    "MCP_AUTH_TOKEN": {
+      "description": "Bearer token for HTTP transport authentication (required when MCP_TRANSPORT=http)",
+      "isRequired": false,
+      "isSecret": true
     }
   }
 }

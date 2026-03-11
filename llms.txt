@@ -51,6 +51,15 @@ This TypeScript server wraps the WooCommerce REST API into MCP-compatible tools 
 - `handle_refund`: Guided refund processing — review order, select items, create refund, verify
 - `moderate_reviews`: Review pending product reviews and recommend approve/update/delete actions
 
+## Transport Modes
+
+The server supports two transport modes:
+
+- **stdio** (default): For local AI tools (Claude Code, Claude Desktop, Cursor). Runs via `npx` with no extra config.
+- **HTTP** (`MCP_TRANSPORT=http`): For remote access from Claude mobile, ChatGPT, or web clients. Requires `MCP_AUTH_TOKEN` for bearer token auth. Listens on port 3000 (configurable via `MCP_PORT`).
+
+HTTP mode uses the MCP SDK's StreamableHTTPServerTransport with per-session server instances and SSE streaming.
+
 ## Configuration
 
 Requires WooCommerce REST API credentials (Consumer Key + Secret) with Read/Write permissions.
@@ -61,6 +70,9 @@ Environment variables:
 - `WOOCOMMERCE_CONSUMER_SECRET` (required): REST API consumer secret (`cs_...`)
 - `WORDPRESS_USERNAME` (optional): WordPress admin username for media tools
 - `WORDPRESS_APP_PASSWORD` (optional): WordPress Application Password for media tools
+- `MCP_TRANSPORT` (optional): Set to `http` for remote access (default: `stdio`)
+- `MCP_PORT` (optional): HTTP server port (default: `3000`)
+- `MCP_AUTH_TOKEN` (optional*): Bearer token for HTTP auth (*required when `MCP_TRANSPORT=http`)
 
 ## Optional
 

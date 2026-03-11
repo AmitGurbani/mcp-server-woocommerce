@@ -21,8 +21,9 @@ pnpm build
 
 ```
 src/
-├── index.ts              # Entry point (dotenv + stdio transport)
-├── server.ts             # McpServer creation + tool/resource/prompt registration
+├── index.ts              # Entry point — dual transport (stdio default, HTTP via MCP_TRANSPORT=http)
+├── server.ts             # McpServer factory (createServer()) + tool/resource/prompt registration
+├── http.ts               # HTTP transport server (StreamableHTTPServerTransport, bearer auth, sessions)
 ├── resources.ts          # MCP resources (schema references for agent context)
 ├── prompts.ts            # MCP prompts (guided multi-step workflows)
 ├── services/
@@ -249,6 +250,19 @@ Error handling in `base.ts` maps WooCommerce error codes and HTTP statuses to he
 
 - **Resources** (`src/resources.ts`): Static schema references that agents can read for context. Add new resources using `server.registerResource()` with a `woo://` URI scheme.
 - **Prompts** (`src/prompts.ts`): Multi-step guided workflows that orchestrate tool calls. Add new prompts using `server.registerPrompt()`. Prompts should describe a clear step-by-step sequence referencing specific tool names.
+
+### Dual Transport Architecture
+
+The server supports two transport modes, selected via the `MCP_TRANSPORT` env var:
+
+- **stdio** (default): `src/index.ts` imports `server` from `src/server.ts` and connects via `StdioServerTransport`. This is the standard local mode for `npx` usage.
+- **HTTP** (`MCP_TRANSPORT=http`): `src/index.ts` dynamically imports `src/http.ts`, which uses the SDK's `StreamableHTTPServerTransport` and `createMcpExpressApp()`. Each HTTP session gets its own `McpServer` instance via the `createServer()` factory in `src/server.ts`.
+
+Key design points:
+- `src/server.ts` exports both `createServer()` (factory for HTTP) and `server` (singleton for stdio backward compat)
+- `src/http.ts` is a standalone module — all HTTP logic is isolated there
+- Bearer token auth (`MCP_AUTH_TOKEN`) is required in HTTP mode
+- No new dependencies — Express comes bundled with `@modelcontextprotocol/sdk`
 
 ### CJS Compatibility
 

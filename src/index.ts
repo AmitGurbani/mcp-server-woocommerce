@@ -1,7 +1,13 @@
 #!/usr/bin/env node
 import 'dotenv/config';
-import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
-import { server } from './server.js';
 
-const transport = new StdioServerTransport();
-await server.connect(transport);
+if (process.env.MCP_TRANSPORT === 'http') {
+  await import('./http.js');
+} else {
+  const { StdioServerTransport } = await import(
+    '@modelcontextprotocol/sdk/server/stdio.js'
+  );
+  const { server } = await import('./server.js');
+  const transport = new StdioServerTransport();
+  await server.connect(transport);
+}

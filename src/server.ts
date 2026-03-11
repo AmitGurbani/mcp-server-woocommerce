@@ -23,31 +23,37 @@ import { registerDataTools } from './tools/data.js';
 import { registerResources } from './resources.js';
 import { registerPrompts } from './prompts.js';
 
-export const server = new McpServer({
-  name: 'mcp-server-woocommerce',
-  version: '1.0.0',
-});
+export function createServer(): McpServer {
+  const server = new McpServer({
+    name: 'mcp-server-woocommerce',
+    version: '1.0.0',
+  });
 
-registerProductTools(server);
-registerCategoryTools(server);
-registerOrderTools(server);
-registerCustomerTools(server);
-registerCouponTools(server);
-registerReportTools(server);
-registerMediaTools(server);
-registerAttributeTools(server);
-registerVariationTools(server);
-registerTagTools(server);
-registerBrandTools(server);
-registerShippingTools(server);
-registerTaxTools(server);
-registerWebhookTools(server);
-registerSettingsTools(server);
-registerRefundTools(server);
-registerOrderNoteTools(server);
-registerPaymentGatewayTools(server);
-registerReviewTools(server);
-registerSystemStatusTools(server);
-registerDataTools(server);
-registerResources(server);
-registerPrompts(server);
+  registerProductTools(server);
+  registerCategoryTools(server);
+  registerOrderTools(server);
+  registerCustomerTools(server);
+  registerCouponTools(server);
+  registerReportTools(server);
+  registerMediaTools(server);
+  registerAttributeTools(server);
+  registerVariationTools(server);
+  registerTagTools(server);
+  registerBrandTools(server);
+  registerShippingTools(server);
+  registerTaxTools(server);
+  registerWebhookTools(server);
+  registerSettingsTools(server);
+  registerRefundTools(server);
+  registerOrderNoteTools(server);
+  registerPaymentGatewayTools(server);
+  registerReviewTools(server);
+  registerSystemStatusTools(server);
+  registerDataTools(server);
+  registerResources(server);
+  registerPrompts(server);
+
+  return server;
+}
+
+export const server = createServer();

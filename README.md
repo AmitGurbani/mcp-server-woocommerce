@@ -189,6 +189,9 @@ All tools also set `openWorldHint: false` — they only interact with WooCommerc
 | `WOOCOMMERCE_CONSUMER_SECRET` | Yes | WooCommerce REST API consumer secret (`cs_...`) |
 | `WORDPRESS_USERNAME` | No | WordPress admin username (for media tools) |
 | `WORDPRESS_APP_PASSWORD` | No | WordPress Application Password (for media tools) |
+| `MCP_TRANSPORT` | No | Set to `http` for remote HTTP access (default: `stdio`) |
+| `MCP_PORT` | No | HTTP server port (default: `3000`) |
+| `MCP_AUTH_TOKEN` | No* | Bearer token for HTTP auth (*required when `MCP_TRANSPORT=http`) |
 
 ### Using a `.env` file
 
@@ -271,6 +274,38 @@ docker run \
   -e WOOCOMMERCE_CONSUMER_SECRET=cs_your_secret \
   mcp-server-woocommerce
 ```
+
+### Remote / Mobile Access (HTTP Transport)
+
+For accessing your WooCommerce tools from Claude mobile, ChatGPT, or other remote clients, run the server in HTTP mode:
+
+```bash
+MCP_TRANSPORT=http MCP_AUTH_TOKEN=your-secret-token node build/index.js
+```
+
+Or with Docker:
+
+```bash
+docker run -p 3000:3000 \
+  -e MCP_TRANSPORT=http \
+  -e MCP_AUTH_TOKEN=your-secret-token \
+  -e WORDPRESS_SITE_URL=https://store.example.com \
+  -e WOOCOMMERCE_CONSUMER_KEY=ck_your_key \
+  -e WOOCOMMERCE_CONSUMER_SECRET=cs_your_secret \
+  mcp-server-woocommerce
+```
+
+| Variable | Default | Description |
+| --- | --- | --- |
+| `MCP_TRANSPORT` | `stdio` | Set to `http` for remote access |
+| `MCP_PORT` | `3000` | HTTP server port |
+| `MCP_AUTH_TOKEN` | _(required)_ | Bearer token for authentication |
+
+**Deployment**: Deploy to **Railway**, **Fly.io**, or any container host that supports Docker or Node.js. Set the three WooCommerce env vars plus `MCP_TRANSPORT=http` and `MCP_AUTH_TOKEN`.
+
+**Claude mobile / web**: Once deployed, go to [Claude.ai](https://claude.ai) → **Settings** → **Connectors** → **Add Custom Connector**. Enter your server's public URL (e.g. `https://your-app.railway.app/mcp`) and the bearer token you set as `MCP_AUTH_TOKEN`. Your WooCommerce tools will then be available in Claude conversations on mobile and web.
+
+Default mode remains `stdio` — existing `npx` users are unaffected.
 
 ## License
 
