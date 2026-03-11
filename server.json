@@ -2,8 +2,8 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.AmitGurbani/mcp-server-woocommerce",
   "title": "WooCommerce MCP Server",
-  "description": "82 MCP tools for WooCommerce — products, orders, customers, coupons, shipping, taxes, and more.",
-  "version": "1.0.1",
+  "description": "100 MCP tools for WooCommerce — products, orders, refunds, customers, coupons, reviews, payment gateways, shipping, taxes, and more.",
+  "version": "1.1.0",
   "websiteUrl": "https://github.com/AmitGurbani/mcp-server-woocommerce",
   "repository": {
     "type": "git",
@@ -23,13 +23,16 @@
     "webhooks",
     "media",
     "customers",
-    "coupons"
+    "coupons",
+    "refunds",
+    "reviews",
+    "payment-gateways"
   ],
   "packages": [
     {
       "registryType": "npm",
       "name": "@amitgurbani/mcp-server-woocommerce",
-      "version": "1.0.1",
+      "version": "1.1.0",
       "identifier": "@amitgurbani/mcp-server-woocommerce",
       "runtime": "node",
       "transport": {
