@@ -244,10 +244,6 @@ fields: "id,number,status,total"
 
 This reduces response size by **60-97%**, keeping AI context windows focused and costs low.
 
-## Agent Orchestration
-
-This project is maintained by a team of AI agents coordinated via [Paperclip](https://github.com/paperclipai/paperclip). See [docs/ORCHESTRATION.md](docs/ORCHESTRATION.md) for details.
-
 ## Development
 
 ```bash
