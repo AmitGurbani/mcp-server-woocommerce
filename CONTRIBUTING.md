@@ -292,6 +292,32 @@ pnpm build                    # TypeScript compilation check
 npx @modelcontextprotocol/inspector node build/index.js  # Interactive tool testing
 ```
 
+### Integration Tests
+
+Integration tests run against a real WordPress + WooCommerce instance via [`@wordpress/env`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/).
+
+**Prerequisites**: Docker Desktop (macOS/Windows) or Docker Engine (Linux)
+
+```bash
+# Run integration tests (starts wp-env automatically if not running)
+pnpm test:integration
+
+# For faster iteration: start wp-env once, then run tests repeatedly
+npx wp-env start
+pnpm test:integration
+
+# Tear down the WordPress environment
+npx wp-env stop
+```
+
+Integration test files live in `tests/integration/` and follow the naming convention `*.integration.test.ts`. Each test file creates a real MCP client connected to the server via in-memory transport, and calls tools against the live WooCommerce API.
+
+To add a new integration test, create `tests/integration/<domain>.integration.test.ts` following the existing patterns (import `createTestClient`, use `parseResult` helper, clean up created resources in `afterAll`).
+
+Note: `pnpm test` runs only unit tests (unchanged). Integration tests are a separate command.
+
+### Unit Tests
+
 Tests live alongside source files as `*.test.ts`. Key test files:
 
 - `src/services/base.test.ts` — tests for shared helpers (`resolveFields`, `handleRequest`, `handleListRequest`)

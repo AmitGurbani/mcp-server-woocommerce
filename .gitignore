@@ -9,3 +9,4 @@ agents/**/memory/
 coverage/
 *.tgz
 .mcpregistry_*
+.integration-env

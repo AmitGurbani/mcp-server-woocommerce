@@ -1,0 +1,9 @@
+{
+  "core": "WordPress/WordPress#6.9.4",
+  "plugins": [
+    "https://downloads.wordpress.org/plugin/woocommerce.10.5.3.zip"
+  ],
+  "config": {
+    "WP_DEBUG": true
+  }
+}

@@ -42,3 +42,32 @@ jobs:
 
       - name: Build
         run: pnpm build
+
+  integration:
+    runs-on: ubuntu-latest
+    needs: ci
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Start WordPress + WooCommerce
+        run: npx wp-env start
+
+      - name: Run integration tests
+        run: pnpm test:integration
+        timeout-minutes: 10
+
+      - name: Stop WordPress
+        if: always()
+        run: npx wp-env stop

@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Integration tests** against real WordPress 6.9.4 + WooCommerce 10.5.3 via `@wordpress/env`
+  - 8 test suites: products, categories, orders, customers, coupons, tags, settings, full E2E workflow
+  - Automated global setup: starts wp-env, creates API keys, seeds test data
+  - CI pipeline: new `integration` job runs after unit tests on push/PR
+  - New scripts: `pnpm test:integration`, `pnpm wp-env`
 - **Streamable HTTP transport** for remote and mobile access (`MCP_TRANSPORT=http`)
   - Bearer token authentication via `MCP_AUTH_TOKEN` (required in HTTP mode)
   - Configurable port via `MCP_PORT` (default: 3000)

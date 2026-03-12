@@ -296,13 +296,16 @@ pnpm install
 ```
 
 ```bash
-pnpm dev          # Watch mode
-pnpm build        # Build
-pnpm start        # Run directly
-pnpm test         # Run tests
-pnpm test:watch   # Run tests in watch mode
-pnpm inspector    # Debug with MCP Inspector
+pnpm dev               # Watch mode
+pnpm build             # Build
+pnpm start             # Run directly
+pnpm test              # Run unit tests
+pnpm test:integration  # Run integration tests (requires Docker)
+pnpm test:watch        # Run unit tests in watch mode
+pnpm inspector         # Debug with MCP Inspector
 ```
+
+**Integration tests** run against a real WordPress 6.9.4 + WooCommerce 10.5.3 instance via [`@wordpress/env`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/). Prerequisite: Docker. The test environment starts automatically when you run `pnpm test:integration`.
 
 ### Docker
 
