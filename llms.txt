@@ -1,6 +1,6 @@
 # MCP Server for WooCommerce
 
-> A Model Context Protocol (MCP) server that enables AI assistants to manage WooCommerce stores through 100 tools, 7 resources, and 5 guided prompts.
+> A Model Context Protocol (MCP) server that enables AI assistants to manage WooCommerce stores through 101 tools, 7 resources, and 5 guided prompts.
 
 This TypeScript server wraps the WooCommerce REST API into MCP-compatible tools for products, orders, refunds, order notes, customers, coupons, reviews, payment gateways, shipping, taxes, webhooks, settings, system status, data, reports, and media management. Every tool supports field filtering to minimize token usage. All tools are annotated with behavior hints (readOnlyHint, destructiveHint, idempotentHint) for safe autonomous operation.
 
@@ -9,7 +9,7 @@ This TypeScript server wraps the WooCommerce REST API into MCP-compatible tools 
 - [README](https://github.com/AmitGurbani/mcp-server-woocommerce#readme): Installation, configuration, and usage guide
 - [Contributing](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/CONTRIBUTING.md): Development setup and contribution guidelines
 
-## Tools (100)
+## Tools (101)
 
 - [Products](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/products.ts): List, get, create, update, delete products with support for attributes, default_attributes, and brands
 - [Categories](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/categories.ts): List, get, create, update, delete product categories (hierarchical)
@@ -17,7 +17,7 @@ This TypeScript server wraps the WooCommerce REST API into MCP-compatible tools 
 - [Brands](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/brands.ts): List, get, create, update, delete product brands (WooCommerce 9.6+)
 - [Attributes](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/attributes.ts): Global attributes and attribute terms with batch support
 - [Variations](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/variations.ts): Product variations CRUD and batch operations for variable products
-- [Orders](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/orders.ts): List, get, create, update orders with full line item and status management
+- [Orders](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/orders.ts): List, get, create, update, delete orders with full line item and status management
 - [Order Refunds](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/refunds.ts): List, create, and delete order refunds
 - [Order Notes](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/order-notes.ts): List, create, and delete order notes
 - [Customers](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/src/tools/customers.ts): List, get, create, update customer profiles

@@ -8,6 +8,6 @@ export default defineConfig({
     globalSetup: ['tests/integration/global-setup.ts'],
     setupFiles: ['tests/integration/helpers/load-env.ts'],
     testTimeout: 30_000,
-    hookTimeout: 120_000,
+    hookTimeout: 600_000,
   },
 });

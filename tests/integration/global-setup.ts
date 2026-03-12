@@ -39,7 +39,7 @@ export async function setup() {
 
   if (!running) {
     console.log('Starting wp-env...');
-    execSync('npx wp-env start', { cwd: PROJECT_ROOT, stdio: 'inherit', timeout: 120_000 });
+    execSync('npx wp-env start', { cwd: PROJECT_ROOT, stdio: 'inherit', timeout: 600_000 });
     weStartedWpEnv = true;
 
     // Wait for WooCommerce to fully initialize
@@ -51,13 +51,28 @@ export async function setup() {
   if (!existsSync(ENV_FILE)) {
     console.log('Running WooCommerce setup...');
 
-    // Use explicit pipe to avoid stdin redirect issues through Docker layers
-    const setupScript = resolve(import.meta.dirname, 'setup.sh');
-    const output = execSync(`cat "${setupScript}" | npx wp-env run cli bash`, {
+    // Set pretty permalinks (required for REST API)
+    execSync('npx wp-env run cli -- wp rewrite structure "/%postname%/" --allow-root', {
       cwd: PROJECT_ROOT,
-      encoding: 'utf-8',
-      timeout: 60_000,
+      stdio: 'inherit',
+      timeout: 30_000,
     });
+    execSync('npx wp-env run cli -- wp rewrite flush --allow-root', {
+      cwd: PROJECT_ROOT,
+      stdio: 'inherit',
+      timeout: 30_000,
+    });
+
+    // Run PHP setup script (mounted via .wp-env.json mappings)
+    const output = execSync(
+      'npx wp-env run cli -- wp eval-file wp-content/integration-tests/setup.php --allow-root',
+      {
+        cwd: PROJECT_ROOT,
+        encoding: 'utf-8',
+        timeout: 60_000,
+        stdio: ['pipe', 'pipe', 'inherit'],
+      }
+    );
 
     const creds = parseCredentials(output);
 

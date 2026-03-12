@@ -329,7 +329,7 @@ Tests live alongside source files as `*.test.ts`. Key test files:
 - `src/tools/payment-gateways.test.ts` — payment gateway tool tests
 - `src/tools/system-status.test.ts` — system status tool tests
 - `src/tools/data.test.ts` — countries and currencies tool tests
-- `src/tools/schema-validation.test.ts` — validates all 100 tools register correctly with proper schemas and naming conventions
+- `src/tools/schema-validation.test.ts` — validates all 101 tools register correctly with proper schemas and naming conventions
 - `src/resources.test.ts` — validates MCP resources register with correct URIs and content
 - `src/prompts.test.ts` — validates MCP prompts register with correct names and arguments
 

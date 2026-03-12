@@ -37,10 +37,7 @@ describe('Read-only mode', () => {
   });
 
   describe('when WOOCOMMERCE_MCP_READ_ONLY=true', () => {
-    let registeredTools: Map<
-      string,
-      { config: Record<string, any>; handler: Function }
-    >;
+    let registeredTools: Map<string, { config: Record<string, any>; handler: Function }>;
 
     beforeEach(async () => {
       vi.resetModules();
@@ -53,12 +50,13 @@ describe('Read-only mode', () => {
 
       // Patch McpServer prototype to capture registrations
       const originalRegisterTool = McpServer.prototype.registerTool;
-      vi.spyOn(McpServer.prototype, 'registerTool').mockImplementation(
-        function (this: any, ...args: any[]) {
-          const [name, config, handler] = args;
-          registeredTools.set(name, { config, handler });
-        } as any
-      );
+      vi.spyOn(McpServer.prototype, 'registerTool').mockImplementation(function (
+        this: any,
+        ...args: any[]
+      ) {
+        const [name, config, handler] = args;
+        registeredTools.set(name, { config, handler });
+      } as any);
 
       // Import createServer — it will pick up WOOCOMMERCE_MCP_READ_ONLY=true
       const { createServer } = await import('./server.js');
@@ -138,9 +136,7 @@ describe('Read-only mode', () => {
         ).toBe(true);
 
         const result = await tool!.handler(
-          name.startsWith('list_')
-            ? { per_page: 1, page: 1 }
-            : { id: 1 }
+          name.startsWith('list_') ? { per_page: 1, page: 1 } : { id: 1 }
         );
         const text = result?.content?.[0]?.text ?? '';
         expect(text, `${name} should not be blocked`).not.toContain('[READ-ONLY MODE]');
@@ -177,10 +173,7 @@ describe('Read-only mode', () => {
   });
 
   describe('when WOOCOMMERCE_MCP_READ_ONLY is not set', () => {
-    let registeredTools: Map<
-      string,
-      { config: Record<string, any>; handler: Function }
-    >;
+    let registeredTools: Map<string, { config: Record<string, any>; handler: Function }>;
 
     beforeEach(async () => {
       vi.resetModules();
@@ -191,12 +184,13 @@ describe('Read-only mode', () => {
       const { McpServer } = await import('@modelcontextprotocol/sdk/server/mcp.js');
 
       const originalRegisterTool = McpServer.prototype.registerTool;
-      vi.spyOn(McpServer.prototype, 'registerTool').mockImplementation(
-        function (this: any, ...args: any[]) {
-          const [name, config, handler] = args;
-          registeredTools.set(name, { config, handler });
-        } as any
-      );
+      vi.spyOn(McpServer.prototype, 'registerTool').mockImplementation(function (
+        this: any,
+        ...args: any[]
+      ) {
+        const [name, config, handler] = args;
+        registeredTools.set(name, { config, handler });
+      } as any);
 
       const { createServer } = await import('./server.js');
       createServer();
@@ -225,10 +219,7 @@ describe('Read-only mode', () => {
   });
 
   describe('when WOOCOMMERCE_MCP_READ_ONLY is set to a non-true value', () => {
-    let registeredTools: Map<
-      string,
-      { config: Record<string, any>; handler: Function }
-    >;
+    let registeredTools: Map<string, { config: Record<string, any>; handler: Function }>;
 
     beforeEach(async () => {
       vi.resetModules();
@@ -239,12 +230,13 @@ describe('Read-only mode', () => {
       const { McpServer } = await import('@modelcontextprotocol/sdk/server/mcp.js');
 
       const originalRegisterTool = McpServer.prototype.registerTool;
-      vi.spyOn(McpServer.prototype, 'registerTool').mockImplementation(
-        function (this: any, ...args: any[]) {
-          const [name, config, handler] = args;
-          registeredTools.set(name, { config, handler });
-        } as any
-      );
+      vi.spyOn(McpServer.prototype, 'registerTool').mockImplementation(function (
+        this: any,
+        ...args: any[]
+      ) {
+        const [name, config, handler] = args;
+        registeredTools.set(name, { config, handler });
+      } as any);
 
       const { createServer } = await import('./server.js');
       createServer();

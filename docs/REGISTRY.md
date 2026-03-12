@@ -24,13 +24,13 @@ Name `mcp-server-woocommerce` is taken by hlos-ai. We use the scoped package nam
 |----------|--------|----------------|
 | Official MCP Registry | ⚠️ Verify | Previously published as `io.github.AmitGurbani/mcp-server-woocommerce` — verify listing is current with v1.1.0; may need re-publish |
 | Glama | ⚠️ Verify | Not appearing in WooCommerce search results — may need manual re-submission via "Add Server" |
-| PulseMCP | ⚠️ Verify | Previously auto-crawled — confirm listing shows v1.1.0 / 100 tools |
+| PulseMCP | ⚠️ Verify | Previously auto-crawled — confirm listing shows v1.1.0 / 101 tools |
 | Windsurf | ⚠️ Verify | Auto-syncs from Official Registry — depends on Official Registry status |
 | Cursor Directory | ✅ Live | Approved March 11 |
 | MCP Market | ✅ Live | Shows stale 54 tool count — needs v1.1.0 metadata refresh |
 | Smithery | ⏭️ Skipped | Requires hosted HTTP URL; revisit after Streamable HTTP support |
 | mcp.so | ❗ Not Submitted | Opestro listed with ~2 tools (order-only). Submit via mcp.so/submit |
-| awesome-mcp-servers | ❗ Not Submitted | Multiple WooCommerce entries exist. Submit PR with 100 tools + filtering |
+| awesome-mcp-servers | ❗ Not Submitted | Multiple WooCommerce entries exist. Submit PR with 101 tools + filtering |
 | Cline Marketplace | ❗ Not Submitted | Submit to github.com/cline/mcp-marketplace |
 
 ## Priority 1: Core Registries
@@ -125,7 +125,7 @@ Primary destination for Cursor IDE users. Supports "Add MCP" web interface.
 
 **Ready-to-use entry** (copy-paste into README.md):
 ```
-- [AmitGurbani/mcp-server-woocommerce](https://github.com/AmitGurbani/mcp-server-woocommerce) 📇 ☁️ - Comprehensive WooCommerce MCP server with 100 tools for store management — products, orders, customers, coupons, shipping, taxes, and more. Features token-optimized field filtering (60-97% savings), 7 MCP resources, 5 guided prompts, and tool annotations.
+- [AmitGurbani/mcp-server-woocommerce](https://github.com/AmitGurbani/mcp-server-woocommerce) 📇 ☁️ - Comprehensive WooCommerce MCP server with 101 tools for store management — products, orders, customers, coupons, shipping, taxes, and more. Features token-optimized field filtering (60-97% savings), 7 MCP resources, 5 guided prompts, and tool annotations.
 ```
 
 ### Cline Marketplace
@@ -141,7 +141,7 @@ Built into Windsurf IDE; primarily pulls from Official MCP Registry and Smithery
 ## Key Differentiators (for registry descriptions)
 
 Use these points in all submissions:
-- **100 tools** across 20 domains — most comprehensive WooCommerce MCP server
+- **101 tools** across 20 domains — most comprehensive WooCommerce MCP server
 - **Token optimization** — field filtering reduces response size by 60-97%
 - **MCP resources** — 7 schema references for agent context
 - **Guided prompts** — 5 multi-step workflows for common operations
@@ -151,7 +151,7 @@ Use these points in all submissions:
 
 ### Registry Description Template
 
-> Comprehensive WooCommerce MCP server with 100 tools for full store management — products, orders, refunds, notes, customers, coupons, reviews, categories, tags, brands, attributes, variations, payment gateways, reports, media, shipping, taxes, webhooks, settings, system status, and data. Features token-optimized field filtering (60-97% savings), 7 MCP resources, 5 guided prompts, tool annotations, and actionable error messages.
+> Comprehensive WooCommerce MCP server with 101 tools for full store management — products, orders, refunds, notes, customers, coupons, reviews, categories, tags, brands, attributes, variations, payment gateways, reports, media, shipping, taxes, webhooks, settings, system status, and data. Features token-optimized field filtering (60-97% savings), 7 MCP resources, 5 guided prompts, tool annotations, and actionable error messages.
 
 ## Landscape (March 2026 — Update #5)
 

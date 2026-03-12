@@ -63,6 +63,7 @@ jobs:
 
       - name: Start WordPress + WooCommerce
         run: npx wp-env start
+        timeout-minutes: 5
 
       - name: Run integration tests
         run: pnpm test:integration

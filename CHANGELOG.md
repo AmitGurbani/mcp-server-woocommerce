@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **`delete_order` tool** — delete orders (moves to trash by default; `force=true` to permanently delete). Tool count: 100 → 101
 - **Integration tests** against real WordPress 6.9.4 + WooCommerce 10.5.3 via `@wordpress/env`
   - 8 test suites: products, categories, orders, customers, coupons, tags, settings, full E2E workflow
   - Automated global setup: starts wp-env, creates API keys, seeds test data
@@ -62,7 +63,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `catalog_overview` — store catalog analysis
   - `handle_refund` — guided refund processing workflow
   - `moderate_reviews` — product review moderation workflow
-- **Tool annotations** on all 100 tools (`readOnlyHint`, `destructiveHint`, `idempotentHint`, `openWorldHint`)
+- **Tool annotations** on all tools (`readOnlyHint`, `destructiveHint`, `idempotentHint`, `openWorldHint`)
 - **Response field filtering** with configurable `fields` parameter — 60-97% token savings
 - **Actionable error messages** mapping WooCommerce error codes to fix guidance
 - **Docker support** with multi-stage build

@@ -41,7 +41,7 @@ const EXPECTED_TOOLS: Record<string, string[]> = {
     'update_category',
     'delete_category',
   ],
-  orders: ['list_orders', 'get_order', 'create_order', 'update_order'],
+  orders: ['list_orders', 'get_order', 'create_order', 'update_order', 'delete_order'],
   customers: ['list_customers', 'get_customer', 'create_customer', 'update_customer'],
   coupons: ['list_coupons', 'get_coupon', 'create_coupon', 'update_coupon', 'delete_coupon'],
   reports: [
@@ -115,7 +115,12 @@ const TOTAL_EXPECTED_TOOLS = Object.values(EXPECTED_TOOLS).flat().length;
 describe('Tool schema validation', () => {
   const registeredTools = new Map<
     string,
-    { description: string; schema: Record<string, any>; annotations: Record<string, any> | undefined; handler: Function }
+    {
+      description: string;
+      schema: Record<string, any>;
+      annotations: Record<string, any> | undefined;
+      handler: Function;
+    }
   >();
 
   beforeAll(() => {
@@ -281,10 +286,9 @@ describe('Tool schema validation', () => {
 
       expect(deleteTools.length).toBeGreaterThan(0);
       for (const [name, tool] of deleteTools) {
-        expect(
-          tool.annotations?.destructiveHint,
-          `${name} should have destructiveHint: true`
-        ).toBe(true);
+        expect(tool.annotations?.destructiveHint, `${name} should have destructiveHint: true`).toBe(
+          true
+        );
       }
     });
 
@@ -295,19 +299,15 @@ describe('Tool schema validation', () => {
 
       expect(readTools.length).toBeGreaterThan(0);
       for (const [name, tool] of readTools) {
-        expect(
-          tool.annotations?.readOnlyHint,
-          `${name} should have readOnlyHint: true`
-        ).toBe(true);
+        expect(tool.annotations?.readOnlyHint, `${name} should have readOnlyHint: true`).toBe(true);
       }
     });
 
     it('all tools have openWorldHint: false', () => {
       for (const [name, tool] of registeredTools.entries()) {
-        expect(
-          tool.annotations?.openWorldHint,
-          `${name} should have openWorldHint: false`
-        ).toBe(false);
+        expect(tool.annotations?.openWorldHint, `${name} should have openWorldHint: false`).toBe(
+          false
+        );
       }
     });
   });

@@ -32,12 +32,13 @@ describe('registerOrderTools', () => {
     registerOrderTools(server);
   });
 
-  it('registers all 4 order tools', () => {
+  it('registers all 5 order tools', () => {
     expect(registeredTools.has('list_orders')).toBe(true);
     expect(registeredTools.has('get_order')).toBe(true);
     expect(registeredTools.has('create_order')).toBe(true);
     expect(registeredTools.has('update_order')).toBe(true);
-    expect(registeredTools.size).toBe(4);
+    expect(registeredTools.has('delete_order')).toBe(true);
+    expect(registeredTools.size).toBe(5);
   });
 
   describe('list_orders handler', () => {
@@ -174,6 +175,21 @@ describe('registerOrderTools', () => {
           status: 'completed',
         })
       );
+    });
+  });
+
+  describe('delete_order handler', () => {
+    it('calls wooApi.delete with order ID and force flag', async () => {
+      mockedWooApi.delete.mockResolvedValue({
+        data: { id: 55, status: 'trash' },
+      });
+
+      const handler = registeredTools.get('delete_order')!.handler;
+      const result = await handler({ id: 55, force: true });
+
+      expect(mockedWooApi.delete).toHaveBeenCalledWith('orders/55', { force: true });
+      const parsed = JSON.parse(result.content[0].text);
+      expect(parsed.id).toBe(55);
     });
   });
 });

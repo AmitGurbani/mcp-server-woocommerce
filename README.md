@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node](https://img.shields.io/badge/node-%3E%3D18-brightgreen)](https://nodejs.org)
 
-MCP server for managing WooCommerce stores through AI assistants like Claude. Provides 100 tools covering products, orders, customers, coupons, shipping, taxes, webhooks, settings, reports, and more.
+MCP server for managing WooCommerce stores through AI assistants like Claude. Provides 101 tools covering products, orders, customers, coupons, shipping, taxes, webhooks, settings, reports, and more.
 
 ## Quick Start
 
@@ -105,7 +105,7 @@ Add to your Claude Desktop config (`~/Library/Application Support/Claude/claude_
 - **Token optimization** — all tools support a `fields` param to return only specific fields, reducing response size by 60-97%
 - **MCP resources** — schema references for products, orders, coupons, refunds, and payment gateways that agents can read for context
 - **Guided prompts** — multi-step workflows for variable product setup, order processing, and catalog overview
-- **Tool annotations** — `readOnlyHint`, `destructiveHint`, and `idempotentHint` on all 100 tools for safe agent behavior
+- **Tool annotations** — `readOnlyHint`, `destructiveHint`, and `idempotentHint` on all 101 tools for safe agent behavior
 - **Actionable errors** — error responses include guidance on how to fix common issues
 
 ## Safety
@@ -147,7 +147,7 @@ For maximum safety, create WooCommerce API keys with only the permissions you ne
 - **Read-only exploration**: Create a key with **Read** permissions only
 - **Full management**: Use **Read/Write** permissions
 
-## Available Tools (100)
+## Available Tools (101)
 
 | Domain | Tools |
 | --- | --- |
@@ -158,7 +158,7 @@ For maximum safety, create WooCommerce API keys with only the permissions you ne
 | **Attributes** | list, get, create, delete |
 | **Attribute Terms** | list, create, delete, batch update |
 | **Variations** | list, get, create, update, batch update |
-| **Orders** | list, get, create, update |
+| **Orders** | list, get, create, update, delete |
 | **Order Refunds** | list, create, delete |
 | **Order Notes** | list, create, delete |
 | **Customers** | list, get, create, update |
@@ -212,7 +212,7 @@ Every tool is annotated with behavior hints so AI agents can make safe decisions
 | Annotation | Meaning | Applied to |
 | --- | --- | --- |
 | `readOnlyHint` | No side effects, safe to call anytime | All `list_*`, `get_*`, and report tools (46) |
-| `destructiveHint` | Deletes or removes data | All `delete_*` tools + `cleanup_orphaned_media` + `run_system_tool` + `batch_update_*` (21) |
+| `destructiveHint` | Deletes or removes data | All `delete_*` tools + `cleanup_orphaned_media` + `run_system_tool` + `batch_update_*` (22) |
 | `idempotentHint` | Safe to retry, same result each time | All `update_*` tools (15) |
 
 All tools also set `openWorldHint: false` — they only interact with WooCommerce, no external side effects.

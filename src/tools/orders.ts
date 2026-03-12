@@ -204,4 +204,22 @@ export function registerOrderTools(server: McpServer) {
       return await handleRequest(wooApi.put(`orders/${id}`, data), f);
     }
   );
+
+  server.registerTool(
+    'delete_order',
+    {
+      description:
+        'Delete an order. Moves to trash by default; set force=true to permanently delete.',
+      annotations: { destructiveHint: true, openWorldHint: false },
+      inputSchema: {
+        id: z.number().describe('Order ID'),
+        force: z.boolean().optional().default(false).describe('True to permanently delete'),
+        fields: z.string().optional().describe('Comma-separated fields to return in response'),
+      },
+    },
+    async ({ id, force, fields }) => {
+      const f = resolveFields(fields, ORDER_FIELDS);
+      return await handleRequest(wooApi.delete(`orders/${id}`, { force }), f);
+    }
+  );
 }

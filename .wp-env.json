@@ -1,9 +1,12 @@
 {
   "core": "WordPress/WordPress#6.9.4",
-  "plugins": [
-    "https://downloads.wordpress.org/plugin/woocommerce.10.5.3.zip"
-  ],
+  "plugins": ["https://downloads.wordpress.org/plugin/woocommerce.10.5.3.zip"],
+  "mappings": {
+    "wp-content/integration-tests": "./tests/integration"
+  },
+  "testsEnvironment": false,
   "config": {
-    "WP_DEBUG": true
+    "WP_DEBUG": true,
+    "WP_ENVIRONMENT_TYPE": "local"
   }
 }

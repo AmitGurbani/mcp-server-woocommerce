@@ -5,12 +5,23 @@ import { createTestClient, parseResult } from './helpers/mcp-client.js';
 describe('Tags integration', () => {
   let client: Client;
   let cleanup: () => Promise<void>;
+  const createdTagIds: number[] = [];
 
   beforeAll(async () => {
     ({ client, cleanup } = await createTestClient());
   });
 
   afterAll(async () => {
+    for (const id of createdTagIds) {
+      try {
+        await client.callTool({
+          name: 'delete_tag',
+          arguments: { id, force: true },
+        });
+      } catch {
+        // ignore cleanup errors
+      }
+    }
     await cleanup();
   });
 
@@ -24,6 +35,7 @@ describe('Tags integration', () => {
     });
     const created = parseResult(createResult);
     expect(created.id).toBeDefined();
+    createdTagIds.push(created.id);
     expect(created.name).toBe(tagName);
 
     // List and verify it appears

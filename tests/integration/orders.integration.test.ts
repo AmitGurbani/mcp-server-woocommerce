@@ -17,6 +17,11 @@ describe('Orders integration', () => {
       arguments: { search: 'Test Product Simple', per_page: 1, fields: 'id' },
     });
     const products = parseResult(productsResult);
+    if (!products.data || products.data.length === 0) {
+      throw new Error(
+        'Seed product "Test Product Simple" not found. Delete .integration-env and re-run.'
+      );
+    }
     seedProductId = products.data[0].id;
   });
 
@@ -24,8 +29,8 @@ describe('Orders integration', () => {
     for (const id of createdOrderIds) {
       try {
         await client.callTool({
-          name: 'update_order',
-          arguments: { id, status: 'cancelled' },
+          name: 'delete_order',
+          arguments: { id, force: true },
         });
       } catch {
         // ignore cleanup errors

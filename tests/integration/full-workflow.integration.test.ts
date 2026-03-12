@@ -21,8 +21,8 @@ describe('Full E2E workflow', () => {
     if (orderId) {
       try {
         await client.callTool({
-          name: 'update_order',
-          arguments: { id: orderId, status: 'cancelled' },
+          name: 'delete_order',
+          arguments: { id: orderId, force: true },
         });
       } catch {}
     }
