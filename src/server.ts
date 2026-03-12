@@ -26,7 +26,7 @@ import { registerPrompts } from './prompts.js';
 export function createServer(): McpServer {
   const server = new McpServer({
     name: 'mcp-server-woocommerce',
-    version: '1.0.0',
+    version: '1.2.0',
   });
 
   if (process.env.WOOCOMMERCE_MCP_READ_ONLY === 'true') {

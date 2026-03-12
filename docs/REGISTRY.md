@@ -6,7 +6,7 @@ Steps for listing mcp-server-woocommerce on MCP registries and directories.
 
 Before submitting to any registry:
 1. Push repo to GitHub (`github.com/AmitGurbani/mcp-server-woocommerce`) ✅
-2. Publish to npm ✅ (`@amitgurbani/mcp-server-woocommerce` v1.1.0)
+2. Publish to npm ✅ (`@amitgurbani/mcp-server-woocommerce` v1.2.0)
 3. Ensure README has clear setup instructions, tool list, and examples ✅
 4. Verify server works via `npx @modelcontextprotocol/inspector node build/index.js`
 5. `server.json` created in repo root for Official MCP Registry ✅
@@ -14,7 +14,7 @@ Before submitting to any registry:
 
 ## npm ✅
 
-**Status**: Published as `@amitgurbani/mcp-server-woocommerce` v1.1.0.
+**Status**: Published as `@amitgurbani/mcp-server-woocommerce` v1.2.0.
 
 Name `mcp-server-woocommerce` is taken by hlos-ai. We use the scoped package name.
 
@@ -22,13 +22,13 @@ Name `mcp-server-woocommerce` is taken by hlos-ai. We use the scoped package nam
 
 | Registry | Status | Action Required |
 |----------|--------|----------------|
-| Official MCP Registry | ⚠️ Verify | Previously published as `io.github.AmitGurbani/mcp-server-woocommerce` — verify listing is current with v1.1.0; may need re-publish |
-| Glama | ⚠️ Verify | Not appearing in WooCommerce search results — may need manual re-submission via "Add Server" |
-| PulseMCP | ⚠️ Verify | Previously auto-crawled — confirm listing shows v1.1.0 / 101 tools |
-| Windsurf | ⚠️ Verify | Auto-syncs from Official Registry — depends on Official Registry status |
+| Official MCP Registry | ⚠️ Verify | Re-publish with v1.2.0 server.json via `mcp-publisher publish` |
+| Glama | ⚠️ Verify | Auto-syncs from Official Registry — verify after re-publish |
+| PulseMCP | ⚠️ Verify | Auto-crawls Official Registry — verify after re-publish |
+| Windsurf | ⚠️ Verify | Auto-syncs from Official Registry — verify after re-publish |
 | Cursor Directory | ✅ Live | Approved March 11 |
-| MCP Market | ✅ Live | Shows stale 54 tool count — needs v1.1.0 metadata refresh |
-| Smithery | ⏭️ Skipped | Requires hosted HTTP URL; revisit after Streamable HTTP support |
+| MCP Market | ✅ Live | Shows stale 54 tool count — needs v1.2.0 metadata refresh |
+| Smithery | ❗ Not Submitted | HTTP transport now available; submit via CLI or web |
 | mcp.so | ❗ Not Submitted | Opestro listed with ~2 tools (order-only). Submit via mcp.so/submit |
 | awesome-mcp-servers | ❗ Not Submitted | Multiple WooCommerce entries exist. Submit PR with 101 tools + filtering |
 | Cline Marketplace | ❗ Not Submitted | Submit to github.com/cline/mcp-marketplace |
@@ -159,7 +159,7 @@ WooCommerce MCP servers in the ecosystem:
 
 | Server | WC Tools | Field Filtering | Resources | Prompts | Annotations | Stack |
 |--------|----------|----------------|-----------|---------|-------------|-------|
-| **@amitgurbani/mcp-server-woocommerce** | **100** | **Yes (60-97%)** | **7** | **5** | **Yes** | TypeScript |
+| **@amitgurbani/mcp-server-woocommerce** | **101** | **Yes (60-97%)** | **7** | **5** | **Yes** | TypeScript |
 | Techspawn | 80+ | No | No | No | No | Node.js (TS) |
 | Maxli53 (Enterprise Suite) | 115+ | Unknown | Unknown | Unknown | Unknown | LobeHub |
 | Respira (respira.press) | 21 WC (88 total) | No | No | No | Unknown | WP Plugin + Node |
@@ -192,4 +192,4 @@ Notes:
 - **Enterprise adoption**: Stripe, Figma, Notion, Azure DevOps have launched official MCP endpoints
 - **Client updates**: Claude Code dominant agentic CLI; Windsurf acquired by OpenAI (Cascade); Cline growing as open-source alternative
 
-**Our positioning**: 100 WooCommerce-specific tools with token-optimized field filtering (60-97% savings), 7 MCP resources, 5 guided prompts, tool annotations, and actionable errors. No other WooCommerce server offers field filtering, MCP resources, or MCP prompts — this remains our strategic moat. Maxli53 claims 115+ tools but quality/scope is unverified. Techspawn has 80+ tools but lacks filtering/resources/prompts. Respira is commercially polished but only 21 WC tools. Market position: "Feature Leader" for WooCommerce-specific AI workflows.
+**Our positioning**: 101 WooCommerce-specific tools with token-optimized field filtering (60-97% savings), 7 MCP resources, 5 guided prompts, tool annotations, and actionable errors. No other WooCommerce server offers field filtering, MCP resources, or MCP prompts — this remains our strategic moat. Maxli53 claims 115+ tools but quality/scope is unverified. Techspawn has 80+ tools but lacks filtering/resources/prompts. Respira is commercially polished but only 21 WC tools. Market position: "Feature Leader" for WooCommerce-specific AI workflows.

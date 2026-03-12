@@ -3,7 +3,7 @@
   "name": "io.github.AmitGurbani/mcp-server-woocommerce",
   "title": "WooCommerce MCP Server",
   "description": "101 MCP tools for WooCommerce — products, orders, refunds, customers, coupons, reviews, payment gateways, shipping, taxes, and more.",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "websiteUrl": "https://github.com/AmitGurbani/mcp-server-woocommerce",
   "repository": {
     "type": "git",
@@ -32,7 +32,7 @@
     {
       "registryType": "npm",
       "name": "@amitgurbani/mcp-server-woocommerce",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "identifier": "@amitgurbani/mcp-server-woocommerce",
       "runtime": "node",
       "transport": {
