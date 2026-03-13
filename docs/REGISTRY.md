@@ -22,16 +22,16 @@ Name `mcp-server-woocommerce` is taken by hlos-ai. We use the scoped package nam
 
 | Registry | Status | Action Required |
 |----------|--------|----------------|
-| Official MCP Registry | ⚠️ Verify | Re-publish with v1.2.0 server.json via `mcp-publisher publish` |
-| Glama | ⚠️ Verify | Auto-syncs from Official Registry — verify after re-publish |
-| PulseMCP | ⚠️ Verify | Auto-crawls Official Registry — verify after re-publish |
-| Windsurf | ⚠️ Verify | Auto-syncs from Official Registry — verify after re-publish |
+| Official MCP Registry | ✅ Live | v1.2.0 published via `mcp-publisher publish` (March 12) |
+| Glama | ⚠️ Verify | Auto-syncs from Official Registry — verify v1.2.0 propagated |
+| PulseMCP | ⚠️ Verify | Auto-crawls Official Registry — verify v1.2.0 propagated |
+| Windsurf | ⚠️ Verify | Auto-syncs from Official Registry — verify v1.2.0 propagated |
 | Cursor Directory | ✅ Live | Approved March 11 |
 | MCP Market | ✅ Live | Shows stale 54 tool count — needs v1.2.0 metadata refresh |
-| Smithery | ❗ Not Submitted | HTTP transport now available; submit via CLI or web |
-| mcp.so | ❗ Not Submitted | Opestro listed with ~2 tools (order-only). Submit via mcp.so/submit |
-| awesome-mcp-servers | ❗ Not Submitted | Multiple WooCommerce entries exist. Submit PR with 101 tools + filtering |
-| Cline Marketplace | ❗ Not Submitted | Submit to github.com/cline/mcp-marketplace |
+| Smithery | ❗ Not Submitted | CLI bundling fails; submit via web at smithery.ai |
+| mcp.so | ✅ Submitted | Submitted March 13 via web form |
+| awesome-mcp-servers | ✅ PR Submitted | PR [#3143](https://github.com/punkpeye/awesome-mcp-servers/pull/3143) — pending review |
+| Cline Marketplace | ❗ Not Submitted | Submit issue to github.com/cline/mcp-marketplace (needs 400x400 logo) |
 
 ## Priority 1: Core Registries
 
