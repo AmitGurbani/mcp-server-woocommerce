@@ -14,8 +14,9 @@ pnpm test:watch   # Watch mode
 - `src/services/woo-client.ts` — WooCommerce API client singleton
 - `src/services/wp-client.ts` — WordPress REST API client (for media management)
 - `src/tools/*.ts` — each file registers tools for a domain (products, orders, etc.)
-- `src/server.ts` — creates McpServer and registers all tool modules
-- `src/index.ts` — entry point (dotenv + stdio transport)
+- `src/server.ts` — exports `createServer()` factory and singleton `server`; registers all tool modules
+- `src/index.ts` — entry point: selects stdio or HTTP transport via `MCP_TRANSPORT` env var
+- `src/http.ts` — HTTP transport: dual auth (bearer token or OAuth 2.1 via Auth0), health endpoint, session management
 
 ## Adding New Tools
 
