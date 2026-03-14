@@ -82,9 +82,24 @@
       "isSecret": false
     },
     "MCP_AUTH_TOKEN": {
-      "description": "Bearer token for HTTP transport authentication (required when MCP_TRANSPORT=http)",
+      "description": "Bearer token for HTTP transport authentication (alternative to OAuth 2.1)",
       "isRequired": false,
       "isSecret": true
+    },
+    "AUTH0_DOMAIN": {
+      "description": "Auth0 tenant URL for OAuth 2.1 authentication (e.g. https://your-tenant.us.auth0.com)",
+      "isRequired": false,
+      "isSecret": false
+    },
+    "AUTH0_AUDIENCE": {
+      "description": "Auth0 API identifier for OAuth 2.1 token validation",
+      "isRequired": false,
+      "isSecret": false
+    },
+    "MCP_SERVER_URL": {
+      "description": "Public URL of the MCP server for OAuth 2.1 resource metadata discovery",
+      "isRequired": false,
+      "isSecret": false
     }
   }
 }

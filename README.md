@@ -342,11 +342,18 @@ docker run -p 3000:3000 \
 | --- | --- | --- |
 | `MCP_TRANSPORT` | `stdio` | Set to `http` for remote access |
 | `MCP_PORT` | `3000` | HTTP server port |
-| `MCP_AUTH_TOKEN` | _(required)_ | Bearer token for authentication |
+| `MCP_AUTH_TOKEN` | — | Bearer token for authentication (Claude Desktop/Code) |
+| `AUTH0_DOMAIN` | — | Auth0 tenant URL for OAuth 2.1 (Claude.ai Connectors) |
+| `AUTH0_AUDIENCE` | — | Auth0 API identifier for OAuth 2.1 |
+| `MCP_SERVER_URL` | — | Public server URL for OAuth 2.1 discovery |
 
-**Deployment**: Deploy to **Railway**, **Fly.io**, or any container host that supports Docker or Node.js. Set the three WooCommerce env vars plus `MCP_TRANSPORT=http` and `MCP_AUTH_TOKEN`.
+Either `MCP_AUTH_TOKEN` or `AUTH0_DOMAIN` + `AUTH0_AUDIENCE` + `MCP_SERVER_URL` is required.
 
-**Claude mobile / web**: Once deployed, go to [Claude.ai](https://claude.ai) → **Settings** → **Connectors** → **Add Custom Connector**. Enter your server's public URL (e.g. `https://your-app.railway.app/mcp`) and the bearer token you set as `MCP_AUTH_TOKEN`. Your WooCommerce tools will then be available in Claude conversations on mobile and web.
+**Deployment guide**: See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for step-by-step instructions for Railway (~$0/mo), Fly.io (~$0/mo with scale-to-zero), and Docker deployments.
+
+**Claude Desktop / Code**: Use bearer token auth — add the server URL and `Authorization: Bearer <token>` header to your config.
+
+**Claude.ai web / mobile**: Requires OAuth 2.1 via Auth0 (free tier). See the [deployment guide](docs/DEPLOYMENT.md#auth0-setup-for-claude-connectors) for setup instructions.
 
 Default mode remains `stdio` — existing `npx` users are unaffected.
 

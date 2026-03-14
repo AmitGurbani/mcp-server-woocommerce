@@ -56,9 +56,9 @@ This TypeScript server wraps the WooCommerce REST API into MCP-compatible tools 
 The server supports two transport modes:
 
 - **stdio** (default): For local AI tools (Claude Code, Claude Desktop, Cursor). Runs via `npx` with no extra config.
-- **HTTP** (`MCP_TRANSPORT=http`): For remote access from Claude mobile, ChatGPT, or web clients. Requires `MCP_AUTH_TOKEN` for bearer token auth. Listens on port 3000 (configurable via `MCP_PORT`).
+- **HTTP** (`MCP_TRANSPORT=http`): For remote access from Claude mobile, ChatGPT, or web clients. Supports two auth modes: bearer token (`MCP_AUTH_TOKEN`) or OAuth 2.1 via Auth0 (`AUTH0_DOMAIN` + `AUTH0_AUDIENCE`). Listens on port 3000 (configurable via `MCP_PORT`). Health check available at `GET /health` (no auth required).
 
-HTTP mode uses the MCP SDK's StreamableHTTPServerTransport with per-session server instances and SSE streaming.
+HTTP mode uses the MCP SDK's StreamableHTTPServerTransport with per-session server instances and SSE streaming. OAuth 2.1 enables Claude.ai web/mobile Connectors with automatic `/.well-known/oauth-protected-resource` discovery.
 
 ## Configuration
 
@@ -72,9 +72,15 @@ Environment variables:
 - `WORDPRESS_APP_PASSWORD` (optional): WordPress Application Password for media tools
 - `MCP_TRANSPORT` (optional): Set to `http` for remote access (default: `stdio`)
 - `MCP_PORT` (optional): HTTP server port (default: `3000`)
-- `MCP_AUTH_TOKEN` (optional*): Bearer token for HTTP auth (*required when `MCP_TRANSPORT=http`)
+- `MCP_AUTH_TOKEN` (optional): Bearer token for HTTP auth (alternative to OAuth 2.1)
+- `AUTH0_DOMAIN` (optional): Auth0 tenant URL for OAuth 2.1 (e.g. `https://your-tenant.us.auth0.com`)
+- `AUTH0_AUDIENCE` (optional): Auth0 API identifier for OAuth 2.1 token validation
+- `MCP_SERVER_URL` (optional): Public server URL for OAuth 2.1 resource metadata discovery
+
+Either `MCP_AUTH_TOKEN` or `AUTH0_DOMAIN` + `AUTH0_AUDIENCE` + `MCP_SERVER_URL` is required when `MCP_TRANSPORT=http`.
 
 ## Optional
 
 - [Architecture](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/CLAUDE.md): Codebase architecture, patterns, and adding new tools
+- [Deployment Guide](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/docs/DEPLOYMENT.md): Deploy to Railway, Fly.io, or Docker with Auth0 OAuth 2.1
 - [Registry Guide](https://github.com/AmitGurbani/mcp-server-woocommerce/blob/main/docs/REGISTRY.md): Publishing to MCP registries (Smithery, Glama, mcp.so)

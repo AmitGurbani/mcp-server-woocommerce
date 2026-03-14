@@ -35,7 +35,8 @@ If you discover a security vulnerability in this project, please report it respo
 This project handles sensitive credentials and the following areas are in scope:
 
 - **WooCommerce API key handling** — consumer key and consumer secret are passed via environment variables and used for API authentication
-- **MCP transport security** — the server communicates over stdio transport; ensure the transport layer is not exposed to untrusted clients
+- **MCP transport security** — stdio (local) and HTTP (remote) transports. HTTP mode requires bearer token (`MCP_AUTH_TOKEN`) or OAuth 2.1 via Auth0
+- **Authentication tokens** — `MCP_AUTH_TOKEN` and OAuth credentials must be kept secret; never commit to version control
 - **Dependency vulnerabilities** — third-party packages that introduce security risks
 - **Input validation** — parameters passed to WooCommerce API endpoints
 

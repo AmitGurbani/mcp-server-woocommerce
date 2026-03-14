@@ -261,8 +261,10 @@ The server supports two transport modes, selected via the `MCP_TRANSPORT` env va
 Key design points:
 - `src/server.ts` exports both `createServer()` (factory for HTTP) and `server` (singleton for stdio backward compat)
 - `src/http.ts` is a standalone module — all HTTP logic is isolated there
-- Bearer token auth (`MCP_AUTH_TOKEN`) is required in HTTP mode
-- No new dependencies — Express comes bundled with `@modelcontextprotocol/sdk`
+- Dual auth: bearer token (`MCP_AUTH_TOKEN`) or OAuth 2.1 via Auth0 (`AUTH0_DOMAIN` + `AUTH0_AUDIENCE` + `MCP_SERVER_URL`)
+- OAuth 2.1 uses [`mcp-auth`](https://github.com/mcp-auth/js) for JWT validation and `/.well-known/oauth-protected-resource` discovery
+- `GET /health` endpoint (no auth) returns server status for container orchestrators
+- Graceful shutdown on both SIGINT and SIGTERM
 
 ### CJS Compatibility
 
@@ -360,8 +362,21 @@ Looking for a way to start contributing? These areas are beginner-friendly:
 
 The server requires three environment variables (typically set via `.mcp.json` config):
 
-| Variable | Description |
-|---|---|
-| `WORDPRESS_SITE_URL` | Your WooCommerce store URL |
-| `WOOCOMMERCE_CONSUMER_KEY` | WooCommerce REST API consumer key |
-| `WOOCOMMERCE_CONSUMER_SECRET` | WooCommerce REST API consumer secret |
+| Variable | Required | Description |
+|---|---|---|
+| `WORDPRESS_SITE_URL` | Yes | Your WooCommerce store URL |
+| `WOOCOMMERCE_CONSUMER_KEY` | Yes | WooCommerce REST API consumer key |
+| `WOOCOMMERCE_CONSUMER_SECRET` | Yes | WooCommerce REST API consumer secret |
+| `WORDPRESS_USERNAME` | No | WordPress admin username (for media tools) |
+| `WORDPRESS_APP_PASSWORD` | No | WordPress Application Password (for media tools) |
+| `MCP_TRANSPORT` | No | Set to `http` for remote access (default: `stdio`) |
+| `MCP_PORT` | No | HTTP server port (default: `3000`) |
+| `MCP_AUTH_TOKEN` | No* | Bearer token for HTTP auth |
+| `AUTH0_DOMAIN` | No* | Auth0 tenant URL for OAuth 2.1 |
+| `AUTH0_AUDIENCE` | No* | Auth0 API identifier for OAuth 2.1 |
+| `MCP_SERVER_URL` | No* | Public server URL for OAuth 2.1 discovery |
+| `WOOCOMMERCE_MCP_READ_ONLY` | No | Set to `true` to block write operations |
+
+\* Either `MCP_AUTH_TOKEN` or `AUTH0_DOMAIN` + `AUTH0_AUDIENCE` + `MCP_SERVER_URL` is required when `MCP_TRANSPORT=http`.
+
+See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for deployment guides (Railway, Fly.io, Docker).

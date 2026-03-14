@@ -76,6 +76,20 @@ describe('HTTP transport (src/http.ts)', () => {
   });
 
   const baseUrl = `http://127.0.0.1:${PORT}/mcp`;
+  const healthUrl = `http://127.0.0.1:${PORT}/health`;
+
+  // --- Health check tests ---
+
+  it('GET /health returns 200 with status info (no auth required)', async () => {
+    const res = await fetch(healthUrl);
+    expect(res.status).toBe(200);
+    const body = await res.json();
+    expect(body.status).toBe('ok');
+    expect(body.version).toBe('1.2.0');
+    expect(body.transport).toBe('http');
+    expect(typeof body.activeSessions).toBe('number');
+    expect(typeof body.uptime).toBe('number');
+  });
 
   // --- Auth tests ---
 
@@ -215,15 +229,15 @@ describe('HTTP transport (src/http.ts)', () => {
   });
 });
 
-describe('HTTP transport — MCP_AUTH_TOKEN required', () => {
-  it('server exits with code 1 when MCP_AUTH_TOKEN is not set', async () => {
+describe('HTTP transport — auth required', () => {
+  it('server exits with code 1 when neither MCP_AUTH_TOKEN nor AUTH0_DOMAIN is set', async () => {
     const entryPoint = resolve(__dirname, '..', 'build', 'index.js');
 
     const child = spawn('node', [entryPoint], {
       env: {
         ...process.env,
         MCP_TRANSPORT: 'http',
-        // MCP_AUTH_TOKEN intentionally omitted
+        // MCP_AUTH_TOKEN and AUTH0_DOMAIN intentionally omitted
         WORDPRESS_SITE_URL: 'http://localhost:9999',
         WOOCOMMERCE_CONSUMER_KEY: 'ck_test',
         WOOCOMMERCE_CONSUMER_SECRET: 'cs_test',

@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **OAuth 2.1 authentication** via Auth0 + [`mcp-auth`](https://github.com/mcp-auth/js) for Claude.ai web/mobile Connectors
+  - Dual auth mode: bearer token (`MCP_AUTH_TOKEN`) or OAuth 2.1 (`AUTH0_DOMAIN` + `AUTH0_AUDIENCE`)
+  - Automatic `/.well-known/oauth-protected-resource` discovery endpoint
+  - JWT validation via Auth0 JWKS
+- **Health check endpoint** — `GET /health` returns server status, version, active sessions, and uptime (no auth required)
+- **SIGTERM handler** — graceful shutdown on SIGTERM (needed by Railway, Fly.io, Kubernetes)
+- **Deployment guide** — step-by-step docs for Railway, Fly.io, and Docker (`docs/DEPLOYMENT.md`)
+- **Docker Compose** — `docker-compose.yml` for local HTTP transport testing with healthcheck
+- **Fly.io config** — `fly.toml` with scale-to-zero, health checks, and Mumbai region
+- **Docker image publishing** — GitHub Actions workflow auto-publishes to GHCR on release
+
 ## [1.2.0] - 2026-03-12
 
 ### Added
