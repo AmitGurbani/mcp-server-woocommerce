@@ -229,6 +229,7 @@ All tools also set `openWorldHint: false` — they only interact with WooCommerc
 | `WORDPRESS_USERNAME` | No | WordPress admin username (for media tools) |
 | `WORDPRESS_APP_PASSWORD` | No | WordPress Application Password (for media tools) |
 | `MCP_TRANSPORT` | No | Set to `http` for remote HTTP access (default: `stdio`) |
+| `PORT` | No | Platform-provided port (Hostinger, Railway); overrides `MCP_PORT` |
 | `MCP_PORT` | No | HTTP server port (default: `3000`) |
 | `MCP_AUTH_TOKEN` | No* | Bearer token for HTTP auth (*required when `MCP_TRANSPORT=http`) |
 | `WOOCOMMERCE_MCP_READ_ONLY` | No | Set to `true` to block all write/delete operations (safe exploration mode) |
@@ -341,6 +342,7 @@ docker run -p 3000:3000 \
 | Variable | Default | Description |
 | --- | --- | --- |
 | `MCP_TRANSPORT` | `stdio` | Set to `http` for remote access |
+| `PORT` | — | Platform-provided port (overrides `MCP_PORT`) |
 | `MCP_PORT` | `3000` | HTTP server port |
 | `MCP_AUTH_TOKEN` | — | Bearer token for authentication (Claude Desktop/Code) |
 | `AUTH0_DOMAIN` | — | Auth0 tenant URL for OAuth 2.1 (Claude.ai Connectors) |

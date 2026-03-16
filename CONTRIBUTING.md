@@ -370,6 +370,7 @@ The server requires three environment variables (typically set via `.mcp.json` c
 | `WORDPRESS_USERNAME` | No | WordPress admin username (for media tools) |
 | `WORDPRESS_APP_PASSWORD` | No | WordPress Application Password (for media tools) |
 | `MCP_TRANSPORT` | No | Set to `http` for remote access (default: `stdio`) |
+| `PORT` | No | Platform-provided port (Hostinger, Railway); overrides `MCP_PORT` |
 | `MCP_PORT` | No | HTTP server port (default: `3000`) |
 | `MCP_AUTH_TOKEN` | No* | Bearer token for HTTP auth |
 | `AUTH0_DOMAIN` | No* | Auth0 tenant URL for OAuth 2.1 |

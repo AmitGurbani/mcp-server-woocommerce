@@ -40,7 +40,7 @@ pnpm test:watch   # Watch mode
 
 - **CI/CD**: GitHub Actions (`.github/workflows/ci.yml`) — Node 20+22, typecheck, test, build
 - **Docker**: Multi-stage build via `Dockerfile`, auto-published to GHCR via `.github/workflows/docker.yml`
-- **Deployment**: `docker-compose.yml` (local HTTP testing), `fly.toml` (Fly.io), `docs/DEPLOYMENT.md` (guides)
+- **Deployment**: Hostinger, Railway, Fly.io, Docker — see `docs/DEPLOYMENT.md`
 - **Registry**: Smithery config in `smithery.yaml`
 - **Tests**: Vitest — tests live as `*.test.ts` alongside source files
 

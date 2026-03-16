@@ -15,7 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - JWT validation via Auth0 JWKS
 - **Health check endpoint** — `GET /health` returns server status, version, active sessions, and uptime (no auth required)
 - **SIGTERM handler** — graceful shutdown on SIGTERM (needed by Railway, Fly.io, Kubernetes)
-- **Deployment guide** — step-by-step docs for Railway, Fly.io, and Docker (`docs/DEPLOYMENT.md`)
+- **Hostinger deployment** — Node.js app support via hPanel with Express framework detection
+- **`PORT` env var** — platform-provided port (Hostinger, Railway) takes precedence over `MCP_PORT`
+- **`express` direct dependency** — enables Hostinger framework auto-detection (was transitive via SDK)
+- **Deployment guide** — step-by-step docs for Hostinger, Railway, Fly.io, and Docker (`docs/DEPLOYMENT.md`)
 - **Docker Compose** — `docker-compose.yml` for local HTTP transport testing with healthcheck
 - **Fly.io config** — `fly.toml` with scale-to-zero, health checks, and Mumbai region
 - **Docker image publishing** — GitHub Actions workflow auto-publishes to GHCR on release
