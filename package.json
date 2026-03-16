@@ -41,7 +41,7 @@
   ],
   "scripts": {
     "clean": "rm -rf build",
-    "build": "pnpm run clean && tsc",
+    "build": "rm -rf build && tsc",
     "dev": "tsc --watch",
     "start": "node build/index.js",
     "prepublishOnly": "pnpm run build",
