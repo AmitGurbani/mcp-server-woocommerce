@@ -144,7 +144,7 @@ async function main() {
     await transports[sessionId].handleRequest(req, res);
   });
 
-  const port = parseInt(process.env.MCP_PORT || '3000', 10);
+  const port = parseInt(process.env.PORT || process.env.MCP_PORT || '3000', 10);
   const httpServer = app.listen(port, '0.0.0.0', () => {
     console.log(`MCP HTTP server listening on http://0.0.0.0:${port}/mcp`);
   });

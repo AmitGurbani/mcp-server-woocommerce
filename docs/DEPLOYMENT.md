@@ -49,14 +49,15 @@ Claude.ai web/mobile Connectors require OAuth 2.1 with PKCE. The server uses [mc
    - Signing Algorithm: RS256
 3. **Create an Application** (Applications > Applications > Create Application):
    - Type: **Single Page Web Application**
-   - Allowed Callback URLs: your Claude connector callback URL
-   - Ensure **Authorization Code** grant type is enabled (PKCE is automatic for SPA apps)
+   - Allowed Callback URLs: `https://claude.ai/api/mcp/auth_callback, https://claude.com/api/mcp/auth_callback`
+   - Note the **Client ID** from Application Settings (needed when adding the Connector in Claude.ai)
+   - PKCE (S256) is enforced automatically for SPA apps
 4. Note your **Domain** from Settings (e.g. `your-tenant.us.auth0.com`) — this becomes `AUTH0_DOMAIN`
 5. Set the three env vars on your deployment:
    ```
    AUTH0_DOMAIN=https://your-tenant.us.auth0.com
    AUTH0_AUDIENCE=https://mcp.yourstore.com
-   MCP_SERVER_URL=https://your-app.railway.app/mcp
+   MCP_SERVER_URL=https://your-deployment-url.com/mcp
    ```
 
 The server automatically serves `/.well-known/oauth-protected-resource` for MCP client discovery.
@@ -200,6 +201,62 @@ docker run -p 3000:3000 \
 
 ---
 
+## Option 4: Hostinger
+
+Deploy on Hostinger Business (or higher) web hosting — no SSH needed, all via hPanel dashboard.
+
+**Cost**: Included with your existing Hostinger plan (no extra charges).
+
+### Prerequisites
+
+- Hostinger **Business** or higher plan (Premium does not support Node.js)
+- Domain or subdomain pointed to Hostinger
+- Code pushed to a GitHub repository
+
+### Steps
+
+1. Go to **hPanel** > **Websites** > **Add Website** > **Node.js Apps**
+2. Select **Import Git Repository** and authorize your GitHub account
+3. Select the `mcp-server-woocommerce` repository
+4. Verify the auto-detected build settings (adjust if needed):
+   - **Node.js version**: 22
+   - **Install command**: `npm install`
+   - **Build command**: `npm run build`
+   - **Start command**: `node build/index.js`
+5. Add **Environment Variables** (can also be set after deployment):
+   ```
+   MCP_TRANSPORT=http
+   MCP_AUTH_TOKEN=<generate with: openssl rand -hex 32>
+   WORDPRESS_SITE_URL=https://yourstore.com
+   WOOCOMMERCE_CONSUMER_KEY=ck_...
+   WOOCOMMERCE_CONSUMER_SECRET=cs_...
+   ```
+   For OAuth 2.1 (Claude.ai Connectors), also add:
+   ```
+   AUTH0_DOMAIN=https://your-tenant.us.auth0.com
+   AUTH0_AUDIENCE=https://mcp.yourdomain.com
+   MCP_SERVER_URL=https://yourdomain.com/mcp
+   ```
+6. Click **Deploy** — Hostinger clones, installs, builds, and starts automatically
+7. Verify:
+   ```bash
+   curl https://yourdomain.com/health
+   ```
+
+### Redeployment
+
+Push to GitHub and redeploy from **hPanel** > Node.js app dashboard > **Redeploy**. No SSH or manual builds needed.
+
+### Notes
+
+- Hostinger sets the `PORT` env var automatically — the server picks it up via `process.env.PORT`
+- HTTPS is handled automatically by Hostinger's reverse proxy
+- The Node.js process is managed by Hostinger (auto-restart on crash)
+- No Docker support — the app runs directly on Node.js
+- Single instance only (no horizontal scaling)
+
+---
+
 ## Connecting to Claude
 
 ### Claude.ai Web/Mobile (Connectors) — requires OAuth 2.1
@@ -207,9 +264,10 @@ docker run -p 3000:3000 \
 1. Complete the [Auth0 setup](#auth0-setup-for-claude-connectors) and deploy with OAuth env vars
 2. Go to [claude.ai](https://claude.ai) > **Settings** > **Connectors**
 3. Click **Add Custom Connector**
-4. Enter your server URL: `https://your-app.railway.app/mcp` (or `your-app.fly.dev/mcp`)
-5. Claude will discover the OAuth configuration automatically via `/.well-known/oauth-protected-resource`
-6. Complete the Auth0 login flow when prompted
+4. Enter your server URL (e.g. `https://your-app.railway.app/mcp` or `https://yourdomain.com/mcp`)
+5. Expand **Advanced Settings** and enter the Auth0 **Client ID** (from your Auth0 Application Settings)
+6. Claude discovers the OAuth configuration automatically via `/.well-known/oauth-protected-resource`
+7. Complete the Auth0 login flow when prompted
 
 ### Claude Desktop — bearer token
 
