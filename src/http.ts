@@ -64,7 +64,16 @@ async function main() {
     app.use(mcpAuth.protectedResourceMetadataRouter());
 
     // Protect /mcp with JWT validation
-    app.use('/mcp', mcpAuth.bearerAuth('jwt', { resource: mcpServerUrl, audience: auth0Audience }));
+    app.use(
+      '/mcp',
+      mcpAuth.bearerAuth('jwt', { resource: mcpServerUrl, audience: auth0Audience, showErrorDetails: true })
+    );
+
+    // Log auth rejections for debugging
+    app.use('/mcp', (err: unknown, _req: ExpressRequest, res: ExpressResponse, next: () => void) => {
+      console.error('OAuth auth error:', err);
+      next();
+    });
 
     console.log('Auth mode: OAuth 2.1 (Auth0)');
   } else if (authToken) {
