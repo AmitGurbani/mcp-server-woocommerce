@@ -63,31 +63,8 @@ async function main() {
     // Serve /.well-known/oauth-protected-resource for MCP client discovery
     app.use(mcpAuth.protectedResourceMetadataRouter());
 
-    // Debug: log incoming token claims before auth validation
-    app.use('/mcp', (req: ExpressRequest, _res: ExpressResponse, next: () => void) => {
-      const auth = req.headers.authorization;
-      if (auth?.startsWith('Bearer ')) {
-        const token = auth.slice(7);
-        const parts = token.split('.');
-        if (parts.length === 3) {
-          try {
-            const payload = JSON.parse(Buffer.from(parts[1], 'base64url').toString());
-            console.log('JWT claims:', JSON.stringify({ iss: payload.iss, aud: payload.aud, sub: payload.sub }));
-          } catch {
-            console.log('Token is not a JWT (opaque token)');
-          }
-        } else {
-          console.log('Token is not a JWT (opaque token)');
-        }
-      }
-      next();
-    });
-
     // Protect /mcp with JWT validation
-    app.use(
-      '/mcp',
-      mcpAuth.bearerAuth('jwt', { resource: mcpServerUrl, audience: auth0Audience, showErrorDetails: true })
-    );
+    app.use('/mcp', mcpAuth.bearerAuth('jwt', { resource: mcpServerUrl, audience: auth0Audience }));
 
     console.log('Auth mode: OAuth 2.1 (Auth0)');
   } else if (authToken) {
