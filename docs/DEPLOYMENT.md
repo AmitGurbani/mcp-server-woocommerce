@@ -45,19 +45,27 @@ Claude.ai web/mobile Connectors require OAuth 2.1 with PKCE. The server uses [mc
 1. Create a free account at [auth0.com](https://auth0.com) (25,000 MAU free)
 2. **Create an API** (Applications > APIs > Create API):
    - Name: `WooCommerce MCP Server`
-   - Identifier: `https://mcp.yourstore.com` (any unique URI — this becomes `AUTH0_AUDIENCE`)
+   - Identifier: your MCP server URL (e.g. `https://your-app.example.com/mcp`) — must match `MCP_SERVER_URL` exactly
    - Signing Algorithm: RS256
 3. **Create an Application** (Applications > Applications > Create Application):
    - Type: **Single Page Web Application**
    - Allowed Callback URLs: `https://claude.ai/api/mcp/auth_callback, https://claude.com/api/mcp/auth_callback`
-   - Note the **Client ID** from Application Settings (needed when adding the Connector in Claude.ai)
+   - Note the **Client ID** and **Domain** from Application Settings
    - PKCE (S256) is enforced automatically for SPA apps
-4. Note your **Domain** from Settings (e.g. `your-tenant.us.auth0.com`) — this becomes `AUTH0_DOMAIN`
-5. Set the three env vars on your deployment:
+4. **Set Default Audience** (Settings > API Authorization Settings):
+   - Set **Default Audience** to your API Identifier (same as `MCP_SERVER_URL`)
+   - This ensures Auth0 issues JWT tokens instead of opaque tokens
+5. **Grant API access** to the SPA app:
+   - Go to Applications > APIs > your API
+   - Set **User Access** and **Client Access** to **Authorized** for your SPA app
+6. **Disable signups** (optional but recommended for private servers):
+   - Authentication > Database > Username-Password-Authentication > toggle **Disable Sign Ups**
+   - Create your user: User Management > Users > Create User
+7. Set the three env vars on your deployment:
    ```
    AUTH0_DOMAIN=https://your-tenant.us.auth0.com
-   AUTH0_AUDIENCE=https://mcp.yourstore.com
-   MCP_SERVER_URL=https://your-deployment-url.com/mcp
+   AUTH0_AUDIENCE=https://your-app.example.com/mcp
+   MCP_SERVER_URL=https://your-app.example.com/mcp
    ```
 
 The server automatically serves `/.well-known/oauth-protected-resource` for MCP client discovery.
